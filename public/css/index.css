@@ -1,0 +1,12 @@
+:root {
+    /* Palette */
+    --alabaster: #E8EDDF;
+    --timberwolf: #CFDBD5;
+    --maizeCrayola: #F5CB5C;
+    --eerieBlack: #242423;
+    --jet: #333533;
+}
+
+body {    
+    background-color: var(--jet);
+}
