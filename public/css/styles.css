@@ -41,7 +41,7 @@ body {
     align-items: center;
 }
 
-#page__main-container { 
+#page__main-container {     
     display: block;
     margin: 1em;   
     background-color: var(--eerieBlack);

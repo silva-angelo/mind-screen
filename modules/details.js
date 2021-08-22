@@ -1,9 +1,7 @@
 window.onload = () => {
 
-    let movie_id = 299534// Matrix: 603 replace here
+    let movie_id = 299534 // Matrix: 603 Endgame: 299534// replace here
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
-
-    // INSERT ENDPOINT FOR IMAGE CONFIG
 
     const PEOPLE_IMAGES_ENDPOINT = `https://api.themoviedb.org/3/person/{person_id}/images?api_key=${API_KEY}`;
 
@@ -17,21 +15,20 @@ const fetchMovie = async (movie_id, API_KEY) => {
 
     const MOVIE_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`);
 
-    const MOVIE_IMAGES_ENDPOINT = fetch(`
-https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=${API_KEY}&language=en-US&include_image_language=en`);
-
     const PEOPLE_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&language=en-US`)
 
+    const CONFIG_IMAGES_ENDPOINT = fetch(`https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`)
+
     try {
-        let ENDPOINTS = await Promise.all([MOVIE_DATA_ENDPOINT, MOVIE_IMAGES_ENDPOINT, PEOPLE_DATA_ENDPOINT]);
+        let ENDPOINTS = await Promise.all([MOVIE_DATA_ENDPOINT, PEOPLE_DATA_ENDPOINT, CONFIG_IMAGES_ENDPOINT]);
 
         let parsedResponse = await parseResponse(ENDPOINTS);
 
         let movieData = await getMovieData(parsedResponse);
-        let movieImages = await getMovieImages(parsedResponse);
         let peopleData = await getPeopleData(parsedResponse);
+        let imagesConfig = await getImagesConfig(parsedResponse);
 
-        showData(movieData, movieImages, peopleData);
+        showData(movieData, peopleData, imagesConfig);
     } catch (error) {
         getError(error);
     }
@@ -47,7 +44,8 @@ const parseResponse = (endpointsResponse) => {
 
     return [endpointsResponse[0].json(),
     endpointsResponse[1].json(),
-    endpointsResponse[2].json()];
+    endpointsResponse[2].json()
+    ];
 }
 
 const getMovieData = (data) => {
@@ -57,22 +55,22 @@ const getMovieData = (data) => {
     return movieData;
 }
 
-const getMovieImages = (data) => {
-
-    let movieImages = data[1];
-
-    return movieImages;
-}
-
 const getPeopleData = (data) => {
 
-    let peopleData = data[2];
+    let peopleData = data[1];
 
     return peopleData;
 }
 
+const getImagesConfig = (data) => {
 
-const showData = (movieData, movieImages, peopleData) => {
+    let configData = data[2];
+
+    return configData;
+}
+
+
+const showData = (movieData, peopleData, configImages) => {
 
     let getCrewNames = (activity) => {
 
@@ -95,56 +93,66 @@ const showData = (movieData, movieImages, peopleData) => {
         }
 
         if (!filteredPersonsNames) {
-            console.log('test')
+            console.log('test') /////////////////////////////////////////////////////////// TODO -> keep?
+            return 'unknown';
         }
         return filteredPersonsNames;
     };
 
     // MOVIE DATA
     let title = movieData.original_title;
-    let releaseDate = movieData.release_date;
+    let releaseDate = movieData.release_date; // TODO -> Show year only, full date or both?
     let synopsis = movieData.overview;
-
-    // MOVIE IMAGES
-
 
     // PEOPLE DATA
     let crew = peopleData.crew;
     let director = getCrewNames('Director');
     let screenplay = getCrewNames('Writing');
 
+    let cast = peopleData.cast;
+    let actorName = cast[0].name;
+    let characterName = cast[0].character;
+
+    // IMAGES    
+    let baseURL = configImages.images.secure_base_url;
+    let imageSize = 'original'; // TODO -> keep original size or reduce to w500/w780 for loading/performance purposes?    
+    let poster = baseURL + imageSize + movieData.poster_path;
+    let backdrop = baseURL + imageSize + movieData.backdrop_path;
+    let actorPhoto = baseURL + imageSize + cast[0].profile_path;
+
     // HTML UPDATE
 
     let container = document.getElementById('page__main-container');
 
     container.innerHTML = `
-    <img id='page__main-container__poster'
-                src='https://bloximages.chicago2.vip.townnews.com/newsbug.info/content/tncms/assets/v3/editorial/9/8e/98eb7be2-58c7-5a91-83f3-a11d8386b009/609940243eda1.image.jpg'
-                alt='Movie poster'>
+    <img id='page__main-container__backdrop' src='${backdrop}' alt='${title} Background Image'>
+    <img id='page__main-container__poster' src='${poster}' alt='${title} Poster'>    
+    
 
-            <div id='page__main-container__data'>
-                <!-- background-image is backdrop_path-->
-                <h1 id='page__main-container__data__movie-title'>${title}</h1>
-                <p id='page__main-container__data__release-date'>${releaseDate}</p>
-                <p id='page__main-container__data__synopsis'>${synopsis}</p>
+    <div id='page__main-container__data'>            
+    
+        <h1 id='page__main-container__data__movie-title'>${title}</h1>
+        <p id='page__main-container__data__release-date'>${releaseDate}</p>
+        <p id='page__main-container__data__synopsis'>${synopsis}</p>
 
-                <div id='page__main-container__data__credits'>
-                    Directed by <span id='page__main-container__data__credits__director'>${director}</span>
-                    <br>
-                    Screenplay by <span id='page__main-container__data__credits__screenplay'>${screenplay}</span>
-                </div>
+        <div id='page__main-container__data__credits'>
+            Directed by <span id='page__main-container__data__credits__director'>${director}</span>
+            <br>
+            Written by <span id='page__main-container__data__credits__writer'>${screenplay}</span>
+        </div>
 
-                <div id='page__main-container__data__cast-data'>
-                    <p id='page__main-container__data__cast-data__starring'>Starring...</p>
+        <div id='page__main-container__data__cast-data'>
+            <p id='page__main-container__data__cast-data__starring'>Starring...</p>
 
-                    <div id='page__main-container__data__cast-data__actors-container'>
-                        <div id='page__main-container__data__cast__actors-container__item'>
-                            <img id='page__main-container__data__cast__actors-container__item__photo'>
-                            <p id='page__main-container__data__cast__actors-container__item__name'>Actor Name</p>
-                        </div>
-                    </div>
+            <div id='page__main-container__data__cast-data__actors-container'>
+                <div id='page__main-container__data__cast__actors-container__item'>
+                    <img id='page__main-container__data__cast__actors-container__item__photo' src='${actorPhoto}'>
+                    <p id='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>
+                    <p id='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>
                 </div>
             </div>
+        </div>
+    </div>
     `;
 }
 
