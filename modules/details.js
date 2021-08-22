@@ -1,6 +1,6 @@
 window.onload = () => {
 
-    let movie_id = 299534// Matrix: 603 replace here
+    let movie_id = 299534 // Matrix: 603 Endgame: 299534// replace here
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     const PEOPLE_IMAGES_ENDPOINT = `https://api.themoviedb.org/3/person/{person_id}/images?api_key=${API_KEY}`;
@@ -101,52 +101,58 @@ const showData = (movieData, peopleData, configImages) => {
 
     // MOVIE DATA
     let title = movieData.original_title;
-    let releaseDate = movieData.release_date;
+    let releaseDate = movieData.release_date; // TODO -> Show year only, full date or both?
     let synopsis = movieData.overview;
-
-    // MOVIE IMAGES    
-    let baseURL = configImages.images.secure_base_url;
-    let imageSize = 'original'; // TODO -> keep original size or reduce to w500/w780 for loading/performance purposes?    
-    let poster = baseURL + imageSize + movieData.poster_path;
-    let backdrop = baseURL + imageSize + movieData.backdrop_path;
 
     // PEOPLE DATA
     let crew = peopleData.crew;
     let director = getCrewNames('Director');
     let screenplay = getCrewNames('Writing');
 
+    let cast = peopleData.cast;
+    let actorName = cast[0].name;
+    let characterName = cast[0].character;
+
+    // IMAGES    
+    let baseURL = configImages.images.secure_base_url;
+    let imageSize = 'original'; // TODO -> keep original size or reduce to w500/w780 for loading/performance purposes?    
+    let poster = baseURL + imageSize + movieData.poster_path;
+    let backdrop = baseURL + imageSize + movieData.backdrop_path;
+    let actorPhoto = baseURL + imageSize + cast[0].profile_path;
+
     // HTML UPDATE
 
     let container = document.getElementById('page__main-container');
 
     container.innerHTML = `
-    <img id='page__main-container__poster'
-                src='${poster}'
-                alt='${title} Poster'>
+    <img id='page__main-container__backdrop' src='${backdrop}' alt='${title} Background Image'>
+    <img id='page__main-container__poster' src='${poster}' alt='${title} Poster'>    
+    
 
-            <div id='page__main-container__data' style='background-image:url(${backdrop});'>                
-                <h1 id='page__main-container__data__movie-title'>${title}</h1>
-                <p id='page__main-container__data__release-date'>${releaseDate}</p>
-                <p id='page__main-container__data__synopsis'>${synopsis}</p>
+    <div id='page__main-container__data'>            
+    
+        <h1 id='page__main-container__data__movie-title'>${title}</h1>
+        <p id='page__main-container__data__release-date'>${releaseDate}</p>
+        <p id='page__main-container__data__synopsis'>${synopsis}</p>
 
-                <div id='page__main-container__data__credits'>
-                    Directed by <span id='page__main-container__data__credits__director'>${director}</span>
-                    <br>
-                    Written by <span id='page__main-container__data__credits__writer'>${screenplay}</span>
-                </div>
+        <div id='page__main-container__data__credits'>
+            Directed by <span id='page__main-container__data__credits__director'>${director}</span>
+            <br>
+            Written by <span id='page__main-container__data__credits__writer'>${screenplay}</span>
+        </div>
 
-                <div id='page__main-container__data__cast-data'>
-                    <p id='page__main-container__data__cast-data__starring'>Starring...</p>
+        <div id='page__main-container__data__cast-data'>
+            <p id='page__main-container__data__cast-data__starring'>Starring...</p>
 
-                    <div id='page__main-container__data__cast-data__actors-container'>
-                        <div id='page__main-container__data__cast__actors-container__item'>
-                            <img id='page__main-container__data__cast__actors-container__item__photo'>
-                            <p id='page__main-container__data__cast__actors-container__item__name'>Actor Name</p>
-                            <p id='page__main-container__data__cast__actors-container__item__character'>Character Name</p>
-                        </div>
-                    </div>
+            <div id='page__main-container__data__cast-data__actors-container'>
+                <div id='page__main-container__data__cast__actors-container__item'>
+                    <img id='page__main-container__data__cast__actors-container__item__photo' src='${actorPhoto}'>
+                    <p id='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>
+                    <p id='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>
                 </div>
             </div>
+        </div>
+    </div>
     `;
 }
 

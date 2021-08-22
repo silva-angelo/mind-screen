@@ -13,17 +13,28 @@
 }
 
 #page__main-container__poster {
+    z-index: 1;
     align-self: center;    
     border-radius: 2em;
     margin: 0 1em 0 0;    
-    width: 25vw;
+    max-width: 25vw;        
 }
 
 #page__main-container__data {    
+    z-index: 1; /* TODO -> Deleting this makes text unselectable */    
     border-radius: 2em;
-    padding: 2em;
-    background-blend-mode: multiply;  
-    background-size: 50vw;  
+    padding: 2em;    
+}
+
+#page__main-container__backdrop {        
+    position: absolute;
+    object-fit: cover;
+    border-radius: 2em;
+    opacity: 10%;
+    max-width: 94vw;
+    min-width: 94vw;
+    max-height: 75vh;
+    min-height: 75vh;
 }
 
 #page__main-container__data__movie-title {
@@ -72,9 +83,14 @@
 }
 
 #page__main-container__data__cast__actors-container__item__photo {
-
+    border-radius: 1em;
+    width: 10%;
 }
 
 #page__main-container__data__cast__actors-container__item__name {
     
+}
+
+#page__main-container__data__cast__actors-container__item__character {
+
 }
