@@ -19,10 +19,11 @@
     width: 25vw;
 }
 
-#page__main-container__data {
-    background-color: rgb(241, 0, 0);
+#page__main-container__data {    
     border-radius: 2em;
     padding: 2em;
+    background-blend-mode: multiply;  
+    background-size: 50vw;  
 }
 
 #page__main-container__data__movie-title {
@@ -50,7 +51,7 @@
 
 }
 
-#page__main-container__data__credits__screenplay {
+#page__main-container__data__credits__writer {
 
 }
 
