@@ -8,7 +8,7 @@
 }
 
 #page__main-container {
-    display: flex;
+    display: flex;    
     padding: 1em;
 }
 
@@ -16,25 +16,23 @@
     z-index: 1;
     align-self: center;    
     border-radius: 2em;
-    margin: 0 1em 0 0;    
-    max-width: 25vw;        
+    margin: 0 1em 0 1em;    
+    max-width: 23vw;        
 }
 
 #page__main-container__data {    
     z-index: 1; /* TODO -> Deleting this makes text unselectable */    
     border-radius: 2em;
-    padding: 2em;    
+    padding: 2em;
 }
 
 #page__main-container__backdrop {        
-    position: absolute;
+    position: absolute; 
     object-fit: cover;
-    border-radius: 2em;
-    opacity: 10%;
-    max-width: 94vw;
+    border-radius: 2em;    
+    opacity: 10%;    
     min-width: 94vw;
-    max-height: 75vh;
-    min-height: 75vh;
+    max-height: 75vh;    
 }
 
 #page__main-container__data__movie-title {
@@ -75,22 +73,24 @@
 }
 
 #page__main-container__data__cast-data__actors-container {
-
+    display: flex;
 }
 
-#page__main-container__data__cast__actors-container__item {
-
+.page__main-container__data__cast__actors-container__item {
+    margin: 1em 2em;
+    text-align: center;
+    padding: 0;
 }
 
-#page__main-container__data__cast__actors-container__item__photo {
+.page__main-container__data__cast__actors-container__item__photo {
     border-radius: 1em;
-    width: 10%;
+    width: 10em;
 }
 
-#page__main-container__data__cast__actors-container__item__name {
+.page__main-container__data__cast__actors-container__item__name {
     
 }
 
-#page__main-container__data__cast__actors-container__item__character {
+.page__main-container__data__cast__actors-container__item__character {
 
 }

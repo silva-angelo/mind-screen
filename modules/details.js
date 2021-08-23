@@ -1,9 +1,7 @@
 window.onload = () => {
 
-    let movie_id = 299534 // Matrix: 603 Endgame: 299534// replace here
+    let movie_id = 299534  // Matrix: 603 Endgame: 299534// replace here
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
-
-    const PEOPLE_IMAGES_ENDPOINT = `https://api.themoviedb.org/3/person/{person_id}/images?api_key=${API_KEY}`;
 
     fetchMovie(movie_id, API_KEY);
 }
@@ -93,15 +91,20 @@ const showData = (movieData, peopleData, configImages) => {
         }
 
         if (!filteredPersonsNames) {
-            console.log('test') /////////////////////////////////////////////////////////// TODO -> keep?
             return 'unknown';
         }
+
         return filteredPersonsNames;
     };
 
+
+
+
+
+
     // MOVIE DATA
     let title = movieData.original_title;
-    let releaseDate = movieData.release_date; // TODO -> Show year only, full date or both?
+    let releaseDate = movieData.release_date;
     let synopsis = movieData.overview;
 
     // PEOPLE DATA
@@ -110,24 +113,33 @@ const showData = (movieData, peopleData, configImages) => {
     let screenplay = getCrewNames('Writing');
 
     let cast = peopleData.cast;
-    let actorName = cast[0].name;
-    let characterName = cast[0].character;
+    /*let actorName = cast[0].name;
+    let characterName = cast[0].character; 
+    let actorPhoto = baseURL + imageSize + cast[0].profile_path;*/
 
     // IMAGES    
     let baseURL = configImages.images.secure_base_url;
     let imageSize = 'original'; // TODO -> keep original size or reduce to w500/w780 for loading/performance purposes?    
     let poster = baseURL + imageSize + movieData.poster_path;
     let backdrop = baseURL + imageSize + movieData.backdrop_path;
-    let actorPhoto = baseURL + imageSize + cast[0].profile_path;
+    let unavailableImage = '../resources/unavailable_image.png';
+
+    if (poster.includes('null')) {
+        poster = unavailableImage;
+    }
+
+    if (backdrop.includes('null')) {
+        backdrop = unavailableImage;
+    }
 
     // HTML UPDATE
 
     let container = document.getElementById('page__main-container');
 
+
     container.innerHTML = `
     <img id='page__main-container__backdrop' src='${backdrop}' alt='${title} Background Image'>
     <img id='page__main-container__poster' src='${poster}' alt='${title} Poster'>    
-    
 
     <div id='page__main-container__data'>            
     
@@ -143,19 +155,46 @@ const showData = (movieData, peopleData, configImages) => {
 
         <div id='page__main-container__data__cast-data'>
             <p id='page__main-container__data__cast-data__starring'>Starring...</p>
-
-            <div id='page__main-container__data__cast-data__actors-container'>
-                <div id='page__main-container__data__cast__actors-container__item'>
-                    <img id='page__main-container__data__cast__actors-container__item__photo' src='${actorPhoto}'>
-                    <p id='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>
-                    <p id='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>
-                </div>
+            <div id='page__main-container__data__cast-data__actors-container'>                
             </div>
         </div>
     </div>
     `;
+
+    let castContainer = document.getElementById('page__main-container__data__cast-data__actors-container');
+
+    for (let i = 0; i < cast.length/* cast array here*/; i++) {
+        let castContainerItem = document.createElement('div');
+        castContainerItem.className = 'page__main-container__data__cast__actors-container__item';
+
+        let actorPhoto = baseURL + imageSize + cast[i].profile_path;
+        let actorName = cast[i].name;
+        let characterName = cast[i].character;
+
+        if (actorPhoto.includes('null')) {
+            actorPhoto = unavailableImage;
+        }
+
+        castContainer.appendChild(castContainerItem);
+
+        castContainerItem.innerHTML += `                
+                <img class='page__main-container__data__cast__actors-container__item__photo' src='${actorPhoto}'>
+                <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>
+                <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>                
+                `
+    }
 }
 
 const getError = (error) => {
     console.log(error);
 }
+
+
+// ADJUST BACKDROP SIZE (overflowing atm)
+// ADD FONT
+// RELEASE DATE: show year only, full date or both in different sections?
+// ADD TRAILER LINK
+// CHARACTER NAME on ACTOR NAME HOVER?
+// ADD MAXIMUM VALUE, PAGES OR CARROSSEL FOR ACTORS?
+// ADD FAVICON
+// ADD UNAVAILABLE PHOTO TO RESULTS AS WELL
