@@ -79,13 +79,18 @@
 }
 
 #page__main-container__data__cast-data__actors-container {
-    display: flex;
+    display: flex;    
+    max-width: 60vw;
+    justify-content: center;
+    
 }
 
 .page__main-container__data__cast__actors-container__item {
     margin: 1em 2em;
     text-align: center;
     padding: 0;
+    align-content: center;
+    
 }
 
 .page__main-container__data__cast__actors-container__item__photo {    
@@ -101,4 +106,9 @@
 .page__main-container__data__cast__actors-container__item__character {
     font-size: .75em;
     margin: 0;
+}
+
+/* fixes carousel when items in container below minimum displayed items (5) */
+.slick-list {   
+    width: 100%; 
 }
