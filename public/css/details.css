@@ -59,7 +59,7 @@
 }
 
 #page__main-container__data__credits {
-    
+    margin: 1em 0;
 }
 
 #page__main-container__data__credits__director {
@@ -88,15 +88,17 @@
     padding: 0;
 }
 
-.page__main-container__data__cast__actors-container__item__photo {
+.page__main-container__data__cast__actors-container__item__photo {    
     border-radius: 1em;
     max-width: 8vw;
 }
 
 .page__main-container__data__cast__actors-container__item__name {
-    
+    font-weight: bold;
+    margin: .5em;
 }
 
 .page__main-container__data__cast__actors-container__item__character {
-
+    font-size: .75em;
+    margin: 0;
 }

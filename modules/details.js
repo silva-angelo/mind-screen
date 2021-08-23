@@ -163,6 +163,7 @@ const showData = (movieData, peopleData, configImages) => {
         <div id='page__main-container__data__credits'>
             Directed by <span id='page__main-container__data__credits__director'>${director}</span>
             <br>
+            <br>
             Written by <span id='page__main-container__data__credits__writer'>${screenplay}</span>
         </div>
 
@@ -194,8 +195,7 @@ const showData = (movieData, peopleData, configImages) => {
 
         castContainerItem.innerHTML += `                
                 <img class='page__main-container__data__cast__actors-container__item__photo' draggable='false' src='${actorPhoto}'>
-                <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>
-                <p>as</p>
+                <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>                
                 <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>                
                 `
     }
@@ -205,7 +205,6 @@ const getError = (error) => {
     console.log(error);
 }
 
-
-// CHARACTER NAME on ACTOR NAME HOVER?
 // ADD MAXIMUM VALUE, PAGES OR CARROSSEL FOR ACTORS?
-// ADD FAVICON
+// ADD FAVICON TO ALL HTMLs
+// ADD TMBD LOGO/CREDITS
