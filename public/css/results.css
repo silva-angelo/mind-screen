@@ -39,8 +39,3 @@
 	height: auto;
 
 }
-
-.movie-poster_result:hover {
-	filter: blur(2.5px);
-	border: thick solid var(--maizeCrayola);
-}

@@ -3,8 +3,8 @@ window.onload = async () => {
   console.log("hello");
 
   let userInput = "star wars";
-    // let userInput = "asdfasfsdaf";
-    // let userInput = "!";
+  // let userInput = "asdfasfsdaf";
+  // let userInput = "!";
 
   fetchMovies(API_KEY, userInput);
 };
@@ -22,27 +22,21 @@ const fetchMovies = (API_KEY, userInput) => {
     .then((data) => {
       console.log(data);
       console.log(data.results);
-	  console.log(data.page);
-	  console.log(data.page[0]);
+      console.log(data.page);
+      console.log(data.page[0]);
 
       if (data.total_results > 0) {
-        
+        // const dataPage = data.page
+        const movies = data.results;
+        for (let i = 0; i < movies.length; i++) {
+          const cell = document.createElement("div");
 
-        for (let j = 0; j < data.page; j++) {
-			// const dataPage = data.page
-			const movies = data.results;
-          for (let i = 0; i < movies.length; i++) {
-            const cell = document.createElement("div");
-
-            cell.innerHTML = `
+          cell.innerHTML = `
 		<img src="http://image.tmdb.org/t/p/original/${movies[i].poster_path}" 
-		alt="${movies[i].original_title}" class="movie-poster_result" draggable='false'/>`;
+		alt="${movies[i].original_title}" onmouseover="mouseOverPoster(this)" 
+		onmouseout="moveOutPoster(this)"class="movie-poster_result" draggable='false'/>`;
 
-            console.log(cell);
-            console.log(cell.value);
-
-            gridContainer.appendChild(cell);
-          }
+          gridContainer.appendChild(cell);
         }
       } else {
         const p = document.createElement("p");
@@ -66,3 +60,13 @@ const fetchMovies = (API_KEY, userInput) => {
 // };
 
 // const showResults = async () => {};
+
+const moveOutPoster = async (poster) => {
+	poster.style.filter = "blur(0px)";
+	poster.style.border = "thick solid var(--alabaster)";
+};
+
+const mouseOverPoster = async (poster) => {
+  poster.style.filter = "blur(2.5px)";
+  poster.style.border = "thick solid var(--maizeCrayola)";
+};
