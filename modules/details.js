@@ -4,6 +4,8 @@ window.onload = () => {
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(movie_id, API_KEY);
+
+
 }
 
 const fetchMovie = async (movie_id, API_KEY) => {
@@ -87,7 +89,12 @@ const showData = (movieData, peopleData, configImages) => {
                 break;
             }
 
-            filteredPersonsNames += filteredPersons[i].name + ' & ';
+            if (i == (filteredPersons.length - 2)) {
+                filteredPersonsNames += filteredPersons[i].name + ' & ';
+                continue;
+            }
+
+            filteredPersonsNames += filteredPersons[i].name + ', ';
         }
 
         if (!filteredPersonsNames) {
@@ -106,7 +113,7 @@ const showData = (movieData, peopleData, configImages) => {
 
     let getReleaseDateFormatted = () => {
 
-        let releaseDateElementsArray = releaseDateUSFormat.split('-').reverse().join('-');
+        let releaseDateElementsArray = releaseDateUSFormat.split('-').reverse().join('/');
 
         return releaseDateElementsArray;
     }
@@ -179,7 +186,7 @@ const showData = (movieData, peopleData, configImages) => {
 
     let castContainer = document.getElementById('page__main-container__data__cast-data__actors-container');
 
-    for (let i = 0; i < 5/* cast.length here*/; i++) {
+    for (let i = 0; i < cast.length/* cast.length here*/; i++) {
         let castContainerItem = document.createElement('div');
         castContainerItem.className = 'page__main-container__data__cast__actors-container__item';
 
@@ -194,17 +201,36 @@ const showData = (movieData, peopleData, configImages) => {
         castContainer.appendChild(castContainerItem);
 
         castContainerItem.innerHTML += `                
-                <img class='page__main-container__data__cast__actors-container__item__photo' draggable='false' src='${actorPhoto}'>
-                <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>                
-                <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>                
+                <img class='page__main-container__data__cast__actors-container__item__photo' data-lazy='${actorPhoto}'>
+                <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>       
+                <hr>         
+                <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>
                 `
     }
+
+    $(document).ready(function () {
+        $('#page__main-container__data__cast-data__actors-container').slick({
+            infinite: false,
+            lazyLoad: 'ondemand',
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            arrows: false
+        });
+    });
+
+
 }
+
+
 
 const getError = (error) => {
     console.log(error);
 }
 
-// ADD MAXIMUM VALUE, PAGES OR CARROSSEL FOR ACTORS?
+// TODO
+// CENTER ACTOR NAME WITH ACTOR PHOTO
+// CENTER CAST CONTAINER IN DATA CONTAINER DIV
+
 // ADD FAVICON TO ALL HTMLs
 // ADD TMBD LOGO/CREDITS
+// HIDE APIKEY?
