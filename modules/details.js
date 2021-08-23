@@ -97,14 +97,25 @@ const showData = (movieData, peopleData, configImages) => {
         return filteredPersonsNames;
     };
 
+    let getReleaseYear = () => {
 
+        let year = releaseDateUSFormat.split('-');
 
+        return year[0];
+    }
 
+    let getReleaseDateFormatted = () => {
 
+        let releaseDateElementsArray = releaseDateUSFormat.split('-').reverse().join('-');
+
+        return releaseDateElementsArray;
+    }
 
     // MOVIE DATA
     let title = movieData.original_title;
-    let releaseDate = movieData.release_date;
+    let releaseDateUSFormat = movieData.release_date;
+    let releaseDateFormatted = getReleaseDateFormatted();
+    let releaseYear = getReleaseYear();
     let synopsis = movieData.overview;
 
     // PEOPLE DATA
@@ -136,7 +147,6 @@ const showData = (movieData, peopleData, configImages) => {
 
     let container = document.getElementById('page__main-container');
 
-
     container.innerHTML = `
     <img id='page__main-container__backdrop' src='${backdrop}' alt='${title} Background Image'>
     <img id='page__main-container__poster' src='${poster}' alt='${title} Poster'>    
@@ -144,8 +154,11 @@ const showData = (movieData, peopleData, configImages) => {
     <div id='page__main-container__data'>            
     
         <h1 id='page__main-container__data__movie-title'>${title}</h1>
-        <p id='page__main-container__data__release-date'>${releaseDate}</p>
+        <p id='page__main-container__data__release-year'>${releaseYear}</p>
+        <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>
         <p id='page__main-container__data__synopsis'>${synopsis}</p>
+
+        <hr>
 
         <div id='page__main-container__data__credits'>
             Directed by <span id='page__main-container__data__credits__director'>${director}</span>
@@ -154,16 +167,18 @@ const showData = (movieData, peopleData, configImages) => {
         </div>
 
         <div id='page__main-container__data__cast-data'>
-            <p id='page__main-container__data__cast-data__starring'>Starring...</p>
+            <p id='page__main-container__data__cast-data__starring'>Starring:</p>
             <div id='page__main-container__data__cast-data__actors-container'>                
             </div>
         </div>
     </div>
     `;
 
+    // CAST UPDATE
+
     let castContainer = document.getElementById('page__main-container__data__cast-data__actors-container');
 
-    for (let i = 0; i < cast.length/* cast array here*/; i++) {
+    for (let i = 0; i < 5/* cast.length here*/; i++) {
         let castContainerItem = document.createElement('div');
         castContainerItem.className = 'page__main-container__data__cast__actors-container__item';
 
@@ -178,8 +193,9 @@ const showData = (movieData, peopleData, configImages) => {
         castContainer.appendChild(castContainerItem);
 
         castContainerItem.innerHTML += `                
-                <img class='page__main-container__data__cast__actors-container__item__photo' src='${actorPhoto}'>
+                <img class='page__main-container__data__cast__actors-container__item__photo' draggable='false' src='${actorPhoto}'>
                 <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>
+                <p>as</p>
                 <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>                
                 `
     }
@@ -190,11 +206,6 @@ const getError = (error) => {
 }
 
 
-// ADJUST BACKDROP SIZE (overflowing atm)
-// ADD FONT
-// RELEASE DATE: show year only, full date or both in different sections?
-// ADD TRAILER LINK
 // CHARACTER NAME on ACTOR NAME HOVER?
 // ADD MAXIMUM VALUE, PAGES OR CARROSSEL FOR ACTORS?
 // ADD FAVICON
-// ADD UNAVAILABLE PHOTO TO RESULTS AS WELL
