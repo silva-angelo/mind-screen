@@ -88,7 +88,7 @@
     text-align: center; 
 }
 
-.page__main-container__data__cast__actors-container__item__photo {    
+.page__main-container__data__cast__actors-container__item__photo {
     border-radius: 1em;
     max-width: 8vw;
     padding: 0;
@@ -104,7 +104,7 @@
 .page__main-container__data__cast__actors-container__item__character {    
     font-style: italic;
     font-size: .75em;
-    margin: 0;
+    margin: .5em 0;
 }
 
 /* fixes carousel when items in container below minimum displayed items (5) */
