@@ -199,7 +199,7 @@ const showData = (movieData, peopleData, configImages) => {
         castContainer.appendChild(castContainerItem);
 
         castContainerItem.innerHTML += `                
-                <img class='page__main-container__data__cast__actors-container__item__photo' data-lazy='${actorPhoto}'>
+                <img class='page__main-container__data__cast__actors-container__item__photo' data-lazy='${actorPhoto}' alt="${actorName}'s Photo">
                 <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>       
                 <hr>                
                 <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>
@@ -212,7 +212,7 @@ const showData = (movieData, peopleData, configImages) => {
         $('#page__main-container__data__cast-data__actors-container').slick({
             infinite: false,
             lazyLoad: 'ondemand',
-            slidesToShow: 5,
+            slidesToShow: 5.5,
             slidesToScroll: 5,
             arrows: false,
             responsive: [
@@ -253,4 +253,5 @@ const getError = (error) => {
 // ADD FAVICON TO ALL HTMLs
 // ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
 // ADD TMBD LOGO/CREDITS
+// CHECK IF ALL IMGS HAVE ALT FOR ACCESSIBILITY
 // HIDE APIKEY?
