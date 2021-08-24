@@ -1,41 +1,46 @@
 .hidden-scrollbar {
-	-ms-overflow-style: none;
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
 .hidden-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-#page__main-container { 
-    display: block;
-    margin: 1em;   
-    background-color: var(--eerieBlack);
-    width: 95%;    
-    height: auto;
-    color: var(--timberwolf);
-    border-radius: 2em;
-    box-shadow: 0 0 1em var(--eerieBlack);
+#page__main-container {
+  height: auto;
 }
 
 #grid-container {
-	margin: 5%;
-	display: grid;
-	align-self: center;
-	grid-template-columns: auto auto auto auto auto;
-	grid-auto-rows: minmax(auto);
+  margin: 2.5%;
+  display: grid;
+  grid-template-columns: 18% 18% 18% 18% 18%;
+  column-gap: 2.5%;
+  row-gap: 2%;
 }
 
-#grid-container div {
-	text-align: center;
+.poster__wrap {
+  text-align: center;
+  position: relative;
 }
 
 .movie-poster_result {
-	margin-top: 5%;
-	margin-bottom: 5%;
-	border-radius: 10%;
-	border: thick solid var(--alabaster);
-	max-width: 75%;
-	height: auto;
-
+  border-radius: 10%;
+  border: thick solid var(--alabaster);
+  max-width: 90%;
+  height: auto;
+  align-content: center;
 }
+
+/* .poster__description_layer {
+  border-radius: 10%;
+  max-width: 75%;
+  height: auto;
+  visibility: hidden;
+  align-content: center;
+} */
+
+/* .poster__description {
+  margin-inline: 12.5%;
+  text-align: center;
+} */
