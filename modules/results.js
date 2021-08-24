@@ -23,10 +23,11 @@ const fetchMovies = (API_KEY, userInput) => {
 			for (let i = 0; i < movies.length; i++) {
 				const cell = document.createElement("div");
 				cell.setAttribute("class", "poster__wrap");
+				cell.setAttribute("onclick", "getDetails(this)");
 
 				cell.innerHTML = `
 					<img src="http://image.tmdb.org/t/p/original/${movies[i].poster_path}" 
-					alt="${movies[i].original_title}" class="movie-poster_result" draggable='false'/>
+					alt="${movies[i].original_title}" class="movie-poster_result" id="${movies[i].id}" draggable='false'/>
 					<div class='poster__description_layer'>
 					<p class='poster__description'>${movies[i].original_title}<br>
 					(${getYear(movies[i].release_date)})<br>
@@ -49,6 +50,12 @@ const getYear = (movieDate) => {
   let date = new Date(movieDate);
   return date.getFullYear();
 };
+
+const getDetails = async(posterWrap) => {
+	let poster = posterWrap.children[0];
+	const movieId = poster.id;
+	window.location.replace('../views/details.html' + '?' + movieId);
+}
 
 // const moveOutPoster = async (poster) => {
 // 	poster.style.filter = "blur(0px)";
