@@ -22,7 +22,7 @@
 }
 
 #page__main-container__data {    
-    z-index: 1; /* TODO -> Deleting this makes text unselectable */    
+    z-index: 1; /* deleting this makes text unselectable */    
     border-radius: 2em;
     padding: 2em;    
 }
@@ -78,37 +78,38 @@
 
 }
 
-#page__main-container__data__cast-data__actors-container {
-    display: flex;    
-    max-width: 60vw;
-    justify-content: center;
-    
+#page__main-container__data__cast-data__actors-container {       
+    max-width: 65vw;    
 }
 
 .page__main-container__data__cast__actors-container__item {
-    margin: 1em 2em;
-    text-align: center;
-    padding: 0;
-    align-content: center;
-    
+    margin: 1em 1.5em;
+    padding: 0;          
+    text-align: center; 
 }
 
-.page__main-container__data__cast__actors-container__item__photo {    
+.page__main-container__data__cast__actors-container__item__photo {
     border-radius: 1em;
     max-width: 8vw;
+    padding: 0;
+    margin: 0 auto;
 }
 
-.page__main-container__data__cast__actors-container__item__name {
+.page__main-container__data__cast__actors-container__item__name {     
     font-weight: bold;
-    margin: .5em;
+    font-size: .9em;
+    margin: .5em 0;
 }
 
-.page__main-container__data__cast__actors-container__item__character {
+.page__main-container__data__cast__actors-container__item__character {    
+    font-style: italic;
     font-size: .75em;
-    margin: 0;
+    margin: .5em 0;
 }
 
 /* fixes carousel when items in container below minimum displayed items (5) */
-.slick-list {   
-    width: 100%; 
+.slick-list {       
+    width: 100%;      
+    
+    
 }

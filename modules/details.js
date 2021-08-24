@@ -1,11 +1,9 @@
 window.onload = () => {
 
-    let movie_id = 299534  // Matrix: 603 Endgame: 299534// replace here
+    let movie_id = 299534  // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(movie_id, API_KEY);
-
-
 }
 
 const fetchMovie = async (movie_id, API_KEY) => {
@@ -201,36 +199,57 @@ const showData = (movieData, peopleData, configImages) => {
         castContainer.appendChild(castContainerItem);
 
         castContainerItem.innerHTML += `                
-                <img class='page__main-container__data__cast__actors-container__item__photo' data-lazy='${actorPhoto}'>
+                <img class='page__main-container__data__cast__actors-container__item__photo' data-lazy='${actorPhoto}' alt="${actorName}'s Photo">
                 <p class='page__main-container__data__cast__actors-container__item__name'>${actorName}</p>       
-                <hr>         
+                <hr>                
                 <p class='page__main-container__data__cast__actors-container__item__character'>${characterName}</p>
                 `
     }
+
+    // CAST CAROUSEL (SLICK)
 
     $(document).ready(function () {
         $('#page__main-container__data__cast-data__actors-container').slick({
             infinite: false,
             lazyLoad: 'ondemand',
-            slidesToShow: 5,
+            slidesToShow: 5.5,
             slidesToScroll: 5,
-            arrows: false
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: false,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ],
         });
     });
-
-
 }
-
-
 
 const getError = (error) => {
     console.log(error);
 }
 
 // TODO
-// CENTER ACTOR NAME WITH ACTOR PHOTO
-// CENTER CAST CONTAINER IN DATA CONTAINER DIV
-
 // ADD FAVICON TO ALL HTMLs
+// ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
 // ADD TMBD LOGO/CREDITS
+// CHECK IF ALL IMGS HAVE ALT FOR ACCESSIBILITY
 // HIDE APIKEY?
