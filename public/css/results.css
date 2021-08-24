@@ -32,15 +32,31 @@
   align-content: center;
 }
 
-/* .poster__description_layer {
-  border-radius: 10%;
-  max-width: 75%;
-  height: auto;
-  visibility: hidden;
+.poster__description_layer {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  bottom: 0;
+  right: 10%;
+  display: grid;
+  align-items: center;
   align-content: center;
-} */
+  justify-content: center;
+  visibility: hidden;
+}
 
-/* .poster__description {
-  margin-inline: 12.5%;
-  text-align: center;
-} */
+.poster__description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster__wrap:hover .poster__description_layer {
+  visibility: visible;
+}
+
+.poster__wrap:hover .movie-poster_result {
+	filter: blur(2.5px);
+	border: thick solid var(--maizeCrayola);
+	filter: brightness(50%);
+}

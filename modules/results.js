@@ -26,8 +26,7 @@ const fetchMovies = (API_KEY, userInput) => {
 
 				cell.innerHTML = `
 					<img src="http://image.tmdb.org/t/p/original/${movies[i].poster_path}" 
-					alt="${movies[i].original_title}" onmouseover="mouseOverPoster(this)" 
-					onmouseout="moveOutPoster(this)"class="movie-poster_result" draggable='false'/>
+					alt="${movies[i].original_title}" class="movie-poster_result" draggable='false'/>
 					<div class='poster__description_layer'>
 					<p class='poster__description'>${movies[i].original_title}<br>
 					(${getYear(movies[i].release_date)})<br>
@@ -45,41 +44,33 @@ const fetchMovies = (API_KEY, userInput) => {
     .catch((err) => console.error(err));
 };
 
-// const getImages = (API_KEY, posterPath) => {
-//   const config = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
-//   fetch(config)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       baseImageURL = data.images.secure_base_url;
-//       configData = data.images;
-//       console.log("config: ", data);
-//     })
-//     .catch((err) => console.error(err));
-// };
-
-// const showResults = async () => {};
-
-const moveOutPoster = async (poster) => {
-	poster.style.filter = "blur(0px)";
-	poster.style.border = "thick solid var(--alabaster)";
-
-	const posterWrap = poster.parentElement;
-	const posterDescription = posterWrap.children[1];
-
-	posterDescription.style.visibility = "hidden";
-};
-
-const mouseOverPoster = async (poster) => {
-	poster.style.filter = "blur(2.5px)";
-	poster.style.border = "thick solid var(--maizeCrayola)";
-
-	const posterWrap = poster.parentElement;
-	const posterDescription = posterWrap.children[1];
-
-	posterDescription.style.visibility = "visible";
-};
 
 const getYear = (movieDate) => {
   let date = new Date(movieDate);
   return date.getFullYear();
 };
+
+// const moveOutPoster = async (poster) => {
+// 	poster.style.filter = "blur(0px)";
+// 	poster.style.border = "thick solid var(--alabaster)";
+// 	poster.style.filter = "brightness(100%)";
+
+// 	const posterWrap = poster.parentElement;
+// 	const posterDescription = posterWrap.children[1];
+
+// 	posterDescription.style.visibility = "hidden";
+// };
+
+// const mouseOverPoster = async (poster) => {
+// 	poster.style.filter = "blur(2.5px)";
+// 	poster.style.border = "thick solid var(--maizeCrayola)";
+// 	poster.style.filter = "brightness(50%)";
+
+// 	const posterWrap = poster.parentElement;
+// 	const posterDescription = posterWrap.children[1];
+
+// 	posterDescription.style.visibility = "visible";
+// };
+
+//onmouseover="mouseOverPoster(this)" 
+// onmouseout="moveOutPoster(this)"
