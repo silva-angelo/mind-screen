@@ -5,10 +5,11 @@
     --maizeCrayola: #F5CB5C;
     --eerieBlack: #242423;
     --jet: #333533;
+    font-family: 'Roboto', sans-serif;
 }
 
 #page__main-container {
-    display: flex;
+    display: flex;    
     padding: 1em;
 }
 
@@ -16,8 +17,8 @@
     z-index: 1;
     align-self: center;    
     border-radius: 2em;
-    margin: 0 1em 0 0;    
-    max-width: 25vw;        
+    margin: 0 1em 0 1em;    
+    max-width: 23vw;        
 }
 
 #page__main-container__data {    
@@ -27,43 +28,46 @@
 }
 
 #page__main-container__backdrop {        
-    position: absolute;
-    object-fit: cover;
-    border-radius: 2em;
-    opacity: 10%;
-    max-width: 94vw;
-    min-width: 94vw;
-    max-height: 75vh;
-    min-height: 75vh;
+    position: absolute;    
+    object-fit: cover;     
+    border-radius: 2em;    
+    opacity: 10%;       
+    width: 94%;  
+    height: 75vh; 
 }
 
 #page__main-container__data__movie-title {
     color: var(--maizeCrayola);
     font-size: 3em;
-    font-weight: 700;
+    font-weight: bold;
     text-transform: uppercase;
     margin: 0;    
 }
 
-#page__main-container__data__release-date {
+#page__main-container__data__release-year {
     font-size: 2em;
-    margin: 0;  
+    font-weight: bold;
+    margin: 0;
+}
+
+#page__main-container__data__release-date {
+        
 }
 
 #page__main-container__data__synopsis {
-    font-style: italic;
+    font-style: italic;    
 }
 
 #page__main-container__data__credits {
-
+    margin: 1em 0;
 }
 
 #page__main-container__data__credits__director {
-
+    font-weight: bold;
 }
 
 #page__main-container__data__credits__writer {
-
+    font-weight: bold;
 }
 
 #page__main-container__data__cast-data {
@@ -75,22 +79,36 @@
 }
 
 #page__main-container__data__cast-data__actors-container {
-
-}
-
-#page__main-container__data__cast__actors-container__item {
-
-}
-
-#page__main-container__data__cast__actors-container__item__photo {
-    border-radius: 1em;
-    width: 10%;
-}
-
-#page__main-container__data__cast__actors-container__item__name {
+    display: flex;    
+    max-width: 60vw;
+    justify-content: center;
     
 }
 
-#page__main-container__data__cast__actors-container__item__character {
+.page__main-container__data__cast__actors-container__item {
+    margin: 1em 2em;
+    text-align: center;
+    padding: 0;
+    align-content: center;
+    
+}
 
+.page__main-container__data__cast__actors-container__item__photo {    
+    border-radius: 1em;
+    max-width: 8vw;
+}
+
+.page__main-container__data__cast__actors-container__item__name {
+    font-weight: bold;
+    margin: .5em;
+}
+
+.page__main-container__data__cast__actors-container__item__character {
+    font-size: .75em;
+    margin: 0;
+}
+
+/* fixes carousel when items in container below minimum displayed items (5) */
+.slick-list {   
+    width: 100%; 
 }
