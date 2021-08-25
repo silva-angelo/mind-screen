@@ -50,6 +50,11 @@
     margin: 0;
 }
 
+#page__main-container__data__amount {
+    font-size: .85em;
+    margin: 0;
+}
+
 #page__main-container__data__release-date {
         
 }
@@ -63,7 +68,7 @@
 }
 
 #page__main-container__data__credits__role-by {
-    
+
 }
 
 #page__main-container__data__credits__director {

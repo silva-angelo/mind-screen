@@ -74,7 +74,6 @@ const getImagesConfig = (data) => {
     return configData;
 }
 
-
 const showData = (mediaData, peopleData, configImages) => {
 
     let getCrewNames = (activity) => {
@@ -127,22 +126,26 @@ const showData = (mediaData, peopleData, configImages) => {
         return releaseDateElementsArray;
     }
 
-    // MOVIE/TV SHOW CHECKER
+    // MEDIA DATA
+    // Movies contain mediaData.original_title, TV shows contain mediaData.original_name
+    let isMovie = mediaData.original_title;
+    // let isShow = !mediaData.original_title;
 
     let title = '';
     let releaseDateUSFormat = '';
+    let numberOfSeasons = '';
+    let numberOfEpisodes = '';
 
-    if (mediaData.original_title) {
+    if (isMovie) {
         title = mediaData.original_title;
         releaseDateUSFormat = mediaData.release_date;
-
     } else {
         title = mediaData.original_name;
         releaseDateUSFormat = mediaData.first_air_date;
+        numberOfSeasons = mediaData.number_of_seasons + ' seasons';
+        numberOfEpisodes = mediaData.number_of_episodes + ' episodes';
     }
-    // MOVIE DATA
-    //let title = mediaData.original_title;
-    //let releaseDateUSFormat = mediaData.release_date;
+
     let releaseDateFormatted = getReleaseDateFormatted();
     let releaseYear = getReleaseYear();
     let synopsis = mediaData.overview;
@@ -152,7 +155,7 @@ const showData = (mediaData, peopleData, configImages) => {
     let filmmaker = '';
     let roleBy = '';
 
-    if (mediaData.original_title) {
+    if (isMovie) {
         filmmaker = getCrewNames('Director');
         roleBy = 'Directed by ';
     } else {
@@ -164,18 +167,14 @@ const showData = (mediaData, peopleData, configImages) => {
 
     let cast = peopleData.cast;
 
-    console.log(cast);
-    /*let actorName = cast[0].name;
-    let characterName = cast[0].character; 
-    let actorPhoto = baseURL + imageSize + cast[0].profile_path;*/
-
     // IMAGES    
     let baseURL = configImages.images.secure_base_url;
-    let imageSize = 'original'; // TODO -> keep original size or reduce to w500/w780 for loading/performance purposes?    
+    let imageSize = 'original';
     let poster = baseURL + imageSize + mediaData.poster_path;
     let backdrop = baseURL + imageSize + mediaData.backdrop_path;
     let unavailableImage = '../resources/unavailable_image.png';
 
+    // <NOT FOUND IMAGE> REPLACED BY OUR <UNAVAILABLE IMAGE> PLACEHOLDER
     if (poster.includes('null')) {
         poster = unavailableImage;
     }
@@ -185,7 +184,6 @@ const showData = (mediaData, peopleData, configImages) => {
     }
 
     // HTML UPDATE
-
     let container = document.getElementById('page__main-container');
 
     container.innerHTML = `
@@ -196,7 +194,8 @@ const showData = (mediaData, peopleData, configImages) => {
     
         <h1 id='page__main-container__data__movie-title'>${title}</h1>
         <p id='page__main-container__data__release-year'>${releaseYear}</p>
-        <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>
+        <span id='page__main-container__data__amount' style='display:none;'><span id='page__main-container__data__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__amount__seasons'>${numberOfSeasons}</span></span>
+        <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>        
         <p id='page__main-container__data__synopsis'>${synopsis}</p>
 
         <hr>
@@ -216,6 +215,11 @@ const showData = (mediaData, peopleData, configImages) => {
     </div>
     `;
 
+    if (!isMovie) {
+        let showEpsAndSeason = document.getElementById('page__main-container__data__amount');
+        showEpsAndSeason.setAttribute('style', 'display: block;');
+    }
+
     // CAST UPDATE
 
     let castContainer = document.getElementById('page__main-container__data__cast-data__actors-container');
@@ -228,7 +232,7 @@ const showData = (mediaData, peopleData, configImages) => {
         let actorName = cast[i].name;
         let characterName = '';
 
-        if (mediaData.original_title) {
+        if (isMovie) {
             characterName = cast[i].character;
         } else {
             characterName = cast[i].roles[0].character;
@@ -291,8 +295,6 @@ const getError = (error) => {
 
 // TODO
 // ADD GENRES
-// ADD TOTAL SEASONS + TOTAL EPS IN TV SHOWS
-// REPLACE TV DIRECTOR WITH TV CREATOR
 
 // ADD FAVICON TO ALL HTMLs
 // ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
