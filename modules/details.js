@@ -1,7 +1,7 @@
 window.onload = () => {
 
     let media_type = 'tv'; // 'movie' or 'tv'
-    let media_id = 40008; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399
+    let media_id = 84958; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(media_type, media_id, API_KEY);
@@ -126,6 +126,24 @@ const showData = (mediaData, peopleData, configImages) => {
         return releaseDateElementsArray;
     }
 
+    let getGenres = () => {
+
+        let genres = mediaData.genres;
+
+        let genresString = ' ';
+
+        for (let i = 0; i < genres.length; i++) {
+            if (i === genres.length - 1) {
+                genresString += genres[i].name;
+                break;
+            }
+
+            genresString += genres[i].name + ' • ';
+        }
+
+        return genresString;
+    }
+
     // MEDIA DATA
     // Movies contain mediaData.original_title, TV shows contain mediaData.original_name
     let isMovie = mediaData.original_title;
@@ -142,13 +160,27 @@ const showData = (mediaData, peopleData, configImages) => {
     } else {
         title = mediaData.original_name;
         releaseDateUSFormat = mediaData.first_air_date;
-        numberOfSeasons = mediaData.number_of_seasons + ' seasons';
-        numberOfEpisodes = mediaData.number_of_episodes + ' episodes';
+
+        // SEASON & EPISODE PLURALITY CHECKER
+        if (mediaData.number_of_seasons === 1) {
+            numberOfSeasons = mediaData.number_of_seasons + ' season';
+        } else {
+            numberOfSeasons = mediaData.number_of_seasons + ' seasons';
+        }
+
+        if (mediaData.number_of_episodes === 1) {
+            numberOfEpisodes = mediaData.number_of_episodes + ' episode';
+        } else {
+            numberOfEpisodes = mediaData.number_of_episodes + ' episodes';
+        }
     }
 
     let releaseDateFormatted = getReleaseDateFormatted();
     let releaseYear = getReleaseYear();
     let synopsis = mediaData.overview;
+    let genres = getGenres();
+
+    console.log(genres)
 
     // PEOPLE DATA
     let crew = peopleData.crew;
@@ -194,7 +226,13 @@ const showData = (mediaData, peopleData, configImages) => {
     
         <h1 id='page__main-container__data__movie-title'>${title}</h1>
         <p id='page__main-container__data__release-year'>${releaseYear}</p>
-        <span id='page__main-container__data__amount' style='display:none;'><span id='page__main-container__data__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__amount__seasons'>${numberOfSeasons}</span></span>
+        <div id='page__main-container__data__genres-and-amount'>
+            <span id='page__main-container__data__genres-and-amount__genres'>${genres}</span>
+            <span id='page__main-container__data__genres-and-amount__amount' style='display:none;'>
+                —
+                <span id='page__main-container__data__genres-and-amount__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__genres-and-amount__amount__seasons'>${numberOfSeasons}</span>
+            </span>
+        </div>
         <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>        
         <p id='page__main-container__data__synopsis'>${synopsis}</p>
 
@@ -216,8 +254,8 @@ const showData = (mediaData, peopleData, configImages) => {
     `;
 
     if (!isMovie) {
-        let showEpsAndSeason = document.getElementById('page__main-container__data__amount');
-        showEpsAndSeason.setAttribute('style', 'display: block;');
+        let showEpsAndSeason = document.getElementById('page__main-container__data__genres-and-amount__amount');
+        showEpsAndSeason.setAttribute('style', 'display: inline;');
     }
 
     // CAST UPDATE
@@ -294,8 +332,6 @@ const getError = (error) => {
 }
 
 // TODO
-// ADD GENRES
-
 // ADD FAVICON TO ALL HTMLs
 // ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
 // ADD TMBD LOGO/CREDITS
