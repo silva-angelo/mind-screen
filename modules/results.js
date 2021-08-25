@@ -2,7 +2,7 @@ window.onload = async () => {
   const API_KEY = "699c5ef1665132d7f67266a73389f90a";
   console.log("hello");
 
-  let userInput = "star wars";
+  let userInput = window.location.search.substring(0);
     // let userInput = "asdfasfsdaf";
     // let userInput = "!";
 
