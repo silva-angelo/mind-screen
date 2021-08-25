@@ -50,13 +50,25 @@
     margin: 0;
 }
 
-#page__main-container__data__amount {
+#page__main-container__data__genres-and-amount {    
     font-size: .85em;
-    margin: 0;
+    margin: .5em 0;    
+}
+
+#page__main-container__data__genres-and-amount__genres {
+    
+}
+
+#page__main-container__data__genres-and-amount__amount__seasons {       
+    font-weight: bold;
+}
+
+#page__main-container__data__genres-and-amount__amount__episodes {
+    font-weight: bold;
 }
 
 #page__main-container__data__release-date {
-        
+    margin: 0;
 }
 
 #page__main-container__data__synopsis {
@@ -92,14 +104,14 @@
 }
 
 .page__main-container__data__cast__actors-container__item {
-    margin: 1em 1.5em;
+    margin: 0 1.5em 1em;
     padding: 0;          
     text-align: center;
 }
 
 .page__main-container__data__cast__actors-container__item__photo {
     border-radius: 1em;
-    max-width: 8vw;
+    max-width: 7vw;
     padding: 0;
     margin: 0 auto;
 }
