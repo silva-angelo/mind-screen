@@ -145,9 +145,9 @@ const showData = (mediaData, peopleData, configImages) => {
     }
 
     // MEDIA DATA
-    // Movies contain mediaData.original_title, TV shows contain mediaData.original_name
+    // Movies contain mediaData.original_title, TV series contain mediaData.original_name
     let isMovie = mediaData.original_title;
-    // let isShow = !mediaData.original_title;
+    // let isSeries = !mediaData.original_title;
 
     let title = '';
     let releaseDateUSFormat = '';
@@ -332,6 +332,8 @@ const getError = (error) => {
 }
 
 // TODO
+// RESPONSIVE CHECKS/MEDIA QUERIES
+
 // ADD FAVICON TO ALL HTMLs
 // ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
 // ADD TMBD LOGO/CREDITS
