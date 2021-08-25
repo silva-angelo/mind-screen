@@ -11,6 +11,25 @@ body {
     background-color: var(--jet);
 }
 
+#page_list_popular {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 1en;
+    background-color: var(--eerieBlack);
+}
+
+.movie-poster_result {
+    margin-top: 5%;
+	margin-bottom: 5%;
+	border-radius: 10%;
+	border: thick solid var(--alabaster);
+	max-width: 75%;
+	height: 200px;
+}
+
 #page__logo-container__logo {
     display: block;
     margin-left: auto;
@@ -41,7 +60,7 @@ body {
     width: 50%;
     border: 3px solid var(--eerieBlack);
     color: var(--alabaster);
-    border-radius: 20px;
+    border-radius: 2em;
     transition: 500ms;
 }
 
@@ -50,11 +69,4 @@ body {
     outline: none;
 }
 
-.movie-poster_result {
-    margin-top: 5%;
-	margin-bottom: 5%;
-	border-radius: 10%;
-	border: thick solid var(--alabaster);
-	max-width: 75%;
-	height: auto;
-}
+

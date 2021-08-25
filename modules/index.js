@@ -3,16 +3,19 @@ $(document).ready(function () {
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
     const popular_Movie_ENDPOINT=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
 
-    console.log('bla');
+    
 
     $('#searchMovie').change((event) => {
+
+        let type = document.getElementById('mediaType')
+
         let search = event.target.value
 
         if (!search) {
             return;
         }
 
-        window.location.replace('../views/results.html' + '?' + search);
+        window.location.replace('../views/results.html' + '?type=' + type + '&search=' + search);
     });
 
     console.log('bla2');
@@ -52,13 +55,15 @@ function parsedResponse(response) {
 }
 
 function getPopularMovies(data){
+    console.log(data);
    let result = data.results.map((movies) => {
         return {
             img: movies.poster_path,
             title: movies.original_title,
-            popularity: movies.popularity
+            average: movies.vote_average,
         };
     });
+
     return result;
 }
 
@@ -67,10 +72,10 @@ function renderResults(movies) {
 
     const result = document.getElementById('page_list_popular');
 
-    for(let i=0; i<movies.length; i++) {
+    for(let i=0; i<5; i++) {
         const item = document.createElement('div');
-        item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${movies[i].img}"alt="${movies[i].original_title}" 
-        class="movie-poster_result" draggable='false'/>`
+        item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${movies[i].img}"
+        alt='${movies[i].title}' class='movie-poster_result' draggable='false'/>`
 
         result.appendChild(item);
     }
