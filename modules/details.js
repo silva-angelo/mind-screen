@@ -1,32 +1,39 @@
 window.onload = () => {
 
-    let movie_id = 299534  // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993
+    let media_type = 'tv'; // 'movie' or 'tv'
+    let media_id = 40008; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
-    fetchMovie(movie_id, API_KEY);
+    fetchMovie(media_type, media_id, API_KEY);
 }
 
-const fetchMovie = async (movie_id, API_KEY) => {
+const fetchMovie = async (media_type, media_id, API_KEY) => {
 
     let container = document.getElementById('page__main-container');
-    container.innerHTML = "<p>Getting movie information...</p>";
+    container.innerHTML = "<p>Getting information...</p>";
 
-    const MOVIE_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`);
+    const MEDIA_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}?api_key=${API_KEY}&language=en-US`);
 
-    const PEOPLE_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&language=en-US`)
+    let PEOPLE_DATA_ENDPOINT;
 
-    const CONFIG_IMAGES_ENDPOINT = fetch(`https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`)
+    if (media_type === 'tv') {
+        PEOPLE_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}/aggregate_credits?api_key=${API_KEY}&language=en-US`);
+    } else if (media_type === 'movie') {
+        PEOPLE_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}/credits?api_key=${API_KEY}&language=en-US`);
+    }
+
+    const CONFIG_IMAGES_ENDPOINT = fetch(`https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`);
 
     try {
-        let ENDPOINTS = await Promise.all([MOVIE_DATA_ENDPOINT, PEOPLE_DATA_ENDPOINT, CONFIG_IMAGES_ENDPOINT]);
+        let ENDPOINTS = await Promise.all([MEDIA_DATA_ENDPOINT, PEOPLE_DATA_ENDPOINT, CONFIG_IMAGES_ENDPOINT]);
 
         let parsedResponse = await parseResponse(ENDPOINTS);
 
-        let movieData = await getMovieData(parsedResponse);
+        let mediaData = await getMediaData(parsedResponse);
         let peopleData = await getPeopleData(parsedResponse);
         let imagesConfig = await getImagesConfig(parsedResponse);
 
-        showData(movieData, peopleData, imagesConfig);
+        showData(mediaData, peopleData, imagesConfig);
     } catch (error) {
         getError(error);
     }
@@ -46,11 +53,11 @@ const parseResponse = (endpointsResponse) => {
     ];
 }
 
-const getMovieData = (data) => {
+const getMediaData = (data) => {
 
-    let movieData = data[0];
+    let mediaData = data[0];
 
-    return movieData;
+    return mediaData;
 }
 
 const getPeopleData = (data) => {
@@ -67,8 +74,7 @@ const getImagesConfig = (data) => {
     return configData;
 }
 
-
-const showData = (movieData, peopleData, configImages) => {
+const showData = (mediaData, peopleData, configImages) => {
 
     let getCrewNames = (activity) => {
 
@@ -79,6 +85,10 @@ const showData = (movieData, peopleData, configImages) => {
             filteredPersons = crew.filter(person => person.job == activity);
         } else if (activity === 'Writing') {
             filteredPersons = crew.filter(person => person.department == activity);
+        } else if (activity === 'Creator') {
+            for (let c = 0; c < mediaData.created_by.length; c++) {
+                filteredPersons[c] = mediaData.created_by[c];
+            }
         }
 
         for (let i = 0; i < filteredPersons.length; i++) {
@@ -116,30 +126,55 @@ const showData = (movieData, peopleData, configImages) => {
         return releaseDateElementsArray;
     }
 
-    // MOVIE DATA
-    let title = movieData.original_title;
-    let releaseDateUSFormat = movieData.release_date;
+    // MEDIA DATA
+    // Movies contain mediaData.original_title, TV shows contain mediaData.original_name
+    let isMovie = mediaData.original_title;
+    // let isShow = !mediaData.original_title;
+
+    let title = '';
+    let releaseDateUSFormat = '';
+    let numberOfSeasons = '';
+    let numberOfEpisodes = '';
+
+    if (isMovie) {
+        title = mediaData.original_title;
+        releaseDateUSFormat = mediaData.release_date;
+    } else {
+        title = mediaData.original_name;
+        releaseDateUSFormat = mediaData.first_air_date;
+        numberOfSeasons = mediaData.number_of_seasons + ' seasons';
+        numberOfEpisodes = mediaData.number_of_episodes + ' episodes';
+    }
+
     let releaseDateFormatted = getReleaseDateFormatted();
     let releaseYear = getReleaseYear();
-    let synopsis = movieData.overview;
+    let synopsis = mediaData.overview;
 
     // PEOPLE DATA
     let crew = peopleData.crew;
-    let director = getCrewNames('Director');
+    let filmmaker = '';
+    let roleBy = '';
+
+    if (isMovie) {
+        filmmaker = getCrewNames('Director');
+        roleBy = 'Directed by ';
+    } else {
+        filmmaker = getCrewNames('Creator');
+        roleBy = 'Created by ';
+    }
+
     let screenplay = getCrewNames('Writing');
 
     let cast = peopleData.cast;
-    /*let actorName = cast[0].name;
-    let characterName = cast[0].character; 
-    let actorPhoto = baseURL + imageSize + cast[0].profile_path;*/
 
     // IMAGES    
     let baseURL = configImages.images.secure_base_url;
-    let imageSize = 'original'; // TODO -> keep original size or reduce to w500/w780 for loading/performance purposes?    
-    let poster = baseURL + imageSize + movieData.poster_path;
-    let backdrop = baseURL + imageSize + movieData.backdrop_path;
+    let imageSize = 'original';
+    let poster = baseURL + imageSize + mediaData.poster_path;
+    let backdrop = baseURL + imageSize + mediaData.backdrop_path;
     let unavailableImage = '../resources/unavailable_image.png';
 
+    // <NOT FOUND IMAGE> REPLACED BY OUR <UNAVAILABLE IMAGE> PLACEHOLDER
     if (poster.includes('null')) {
         poster = unavailableImage;
     }
@@ -149,7 +184,6 @@ const showData = (movieData, peopleData, configImages) => {
     }
 
     // HTML UPDATE
-
     let container = document.getElementById('page__main-container');
 
     container.innerHTML = `
@@ -160,13 +194,14 @@ const showData = (movieData, peopleData, configImages) => {
     
         <h1 id='page__main-container__data__movie-title'>${title}</h1>
         <p id='page__main-container__data__release-year'>${releaseYear}</p>
-        <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>
+        <span id='page__main-container__data__amount' style='display:none;'><span id='page__main-container__data__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__amount__seasons'>${numberOfSeasons}</span></span>
+        <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>        
         <p id='page__main-container__data__synopsis'>${synopsis}</p>
 
         <hr>
 
         <div id='page__main-container__data__credits'>
-            Directed by <span id='page__main-container__data__credits__director'>${director}</span>
+            <span id='page__main-container__data__credits__role-by'>${roleBy} </span><span id='page__main-container__data__credits__director'>${filmmaker}</span>
             <br>
             <br>
             Written by <span id='page__main-container__data__credits__writer'>${screenplay}</span>
@@ -180,17 +215,28 @@ const showData = (movieData, peopleData, configImages) => {
     </div>
     `;
 
+    if (!isMovie) {
+        let showEpsAndSeason = document.getElementById('page__main-container__data__amount');
+        showEpsAndSeason.setAttribute('style', 'display: block;');
+    }
+
     // CAST UPDATE
 
     let castContainer = document.getElementById('page__main-container__data__cast-data__actors-container');
 
-    for (let i = 0; i < cast.length/* cast.length here*/; i++) {
+    for (let i = 0; i < cast.length; i++) {
         let castContainerItem = document.createElement('div');
         castContainerItem.className = 'page__main-container__data__cast__actors-container__item';
 
         let actorPhoto = baseURL + imageSize + cast[i].profile_path;
         let actorName = cast[i].name;
-        let characterName = cast[i].character;
+        let characterName = '';
+
+        if (isMovie) {
+            characterName = cast[i].character;
+        } else {
+            characterName = cast[i].roles[0].character;
+        }
 
         if (actorPhoto.includes('null')) {
             actorPhoto = unavailableImage;
@@ -248,6 +294,8 @@ const getError = (error) => {
 }
 
 // TODO
+// ADD GENRES
+
 // ADD FAVICON TO ALL HTMLs
 // ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
 // ADD TMBD LOGO/CREDITS

@@ -50,6 +50,11 @@
     margin: 0;
 }
 
+#page__main-container__data__amount {
+    font-size: .85em;
+    margin: 0;
+}
+
 #page__main-container__data__release-date {
         
 }
@@ -60,6 +65,10 @@
 
 #page__main-container__data__credits {
     margin: 1em 0;
+}
+
+#page__main-container__data__credits__role-by {
+
 }
 
 #page__main-container__data__credits__director {
@@ -85,7 +94,7 @@
 .page__main-container__data__cast__actors-container__item {
     margin: 1em 1.5em;
     padding: 0;          
-    text-align: center; 
+    text-align: center;
 }
 
 .page__main-container__data__cast__actors-container__item__photo {
@@ -109,7 +118,5 @@
 
 /* fixes carousel when items in container below minimum displayed items (5) */
 .slick-list {       
-    width: 100%;      
-    
-    
+    width: 100%;
 }
