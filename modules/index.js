@@ -18,8 +18,6 @@ $(document).ready(function () {
         window.location.replace('../views/results.html' + '?type=' + type + '&search=' + search);
     });
 
-    console.log('bla2');
-
     fetch(popular_Movie_ENDPOINT)
         .then(parsedResponse)
         .then(getPopularMovies)
