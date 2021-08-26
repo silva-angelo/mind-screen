@@ -5,49 +5,46 @@
     --maizeCrayola: #F5CB5C;
     --eerieBlack: #242423;
     --jet: #333533;
+    font-family: 'Roboto', sans-serif;
 }
 
-body {    
-    background-color: var(--jet);
+body {
+    background: #333533;
 }
 
-#page_list_popular {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 1en;
-    background-color: var(--eerieBlack);
-}
-
-.movie-poster_result {
-    margin-top: 5%;
-	margin-bottom: 5%;
-	border-radius: 10%;
-	border: thick solid var(--alabaster);
-	max-width: 75%;
-	height: 200px;
-}
-
-#page__logo-container__logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 6%;
-    width: 40%;
-}
-
-#page__logo-container__logo:hover {    
-    animation: glow 1500ms linear infinite alternate;
+.page {
+    animation: glow 10000ms linear infinite alternate;
 }
 
 @keyframes glow {
-    0% {filter: brightness(100%) blur(0);}
+    0% {filter: brightness(100%);}
+    25% {filter: brightness(110%);}
+    50% {filter: brightness(105%);}
+    75% {filter: brightness(500%);}
+    100% {filter: brightness(200%);}
+}
+
+/* .page {
+    background-image: url(../../resources/blurry-logo.svg);
+    animation: glow 5000ms linear infinite alternate;
+}
+
+@keyframes glow {
+    0% {filter: brightness(100%) blur(5);}
     25% {filter: brightness(110%) blur(0);}
     50% {filter: brightness(105%) blur(.1em);}
-    75% {filter: brightness(115%) blur(0);}
-    100% {filter: brightness(110%) blur(0);}
+    75% {filter: brightness(100%) blur(0);}
+    100% {filter: brightness(200%) blur(0);}
+} */
+
+#page__logo-container__logo {
+    position: sticky;
+    top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0%;
+    width: 40%;
 }
 
 #searchMovie {
@@ -69,4 +66,96 @@ body {
     outline: none;
 }
 
+#page_popular_movies {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 50px;
+    padding: 20px;
+    border-radius: 1em;
+    background-color: var(--eerieBlack);
+}
+
+#page_popular_series {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 50px;
+    padding: 20px;
+    border-radius: 1em;
+    background-color: var(--eerieBlack);
+}
+
+.poster__wrap__movies {
+    position: relative;
+    text-align: center;
+}
+
+.poster__wrap__series {
+    position: relative;
+    text-align: center;
+}
+
+.movie-poster_result {
+    margin: 2em;
+    border: thick solid var(--eerieBlack);
+	border-radius: 10%;
+	max-width: 75%;
+	height: 200px;
+}
+
+.series-poster_result {
+    margin: 2em;
+    border: thick solid var(--eerieBlack);
+	border-radius: 10%;
+	max-width: 75%;
+	height: 200px;
+}
+
+.poster__wrap__series {
+    position: relative;
+    text-align: center;
+}
+
+.poster__description_layer {
+    position: absolute;
+    display: grid;
+	left: 10%;
+	right: 10%;
+    top: 0;
+    bottom: 0;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	visibility: hidden;
+}
+
+.poster__description {
+    display: flex;
+	align-items: bottom;
+	justify-content: center;
+    text-align: center;
+    color: var(--alabaster);
+}
+
+
+.poster__wrap__movies:hover .poster__description_layer {
+	visibility: visible;
+}
+
+.poster__wrap__movies:hover .movie-poster_result {
+	filter: blur(2.5px);
+	border: thick solid var(--alabaster);
+	filter: brightness(50%);
+}
+
+.poster__wrap__series:hover .poster__description_layer {
+	visibility: visible;
+}
+
+.poster__wrap__series:hover .series-poster_result {
+	filter: blur(2.5px);
+	border: thick solid var(--alabaster);
+	filter: brightness(50%);
+}
 
