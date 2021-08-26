@@ -47,6 +47,7 @@ function getPopularMovies(data){
             img: movies.poster_path,
             title: movies.original_title,
             average: movies.vote_average,
+            release_date : movies.release_date,
         };
     });
 
@@ -60,6 +61,7 @@ function getPopularSeries(data){
             img: series.poster_path,
             title: series.original_name,
             average: series.vote_average,
+            first_air_date: series.first_air_date,
         };
     });
 
@@ -73,8 +75,17 @@ function renderResultsMovies(movies) {
 
     for(let i=0; i<5; i++) {
         const item = document.createElement('div');
-        item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${movies[i].img}"
-        alt='${movies[i].title}' class='movie-poster_result' draggable='false'/>`
+        item.setAttribute('class', 'poster__wrap__movies');
+        item.setAttribute('onclick', 'getDetails')
+
+        item.innerHTML = `
+            <img src="http://image.tmdb.org/t/p/original/${movies[i].img}"
+                alt='${movies[i].title}' class='movie-poster_result' draggable='false'/>
+            <div class='poster__description_layer'>
+                <p class='poster__description'>${movies[i].title}<br>
+                (${getYear(movies[i].release_date)})<br>
+                ${movies[i].average}/10</p>
+            </div>`
 
         result.appendChild(item);
     }
@@ -88,10 +99,22 @@ function renderResultsSeries(series) {
 
     for(let i=0; i<5; i++) {
         const item = document.createElement('div');
+        item.setAttribute("class", "poster__wrap__series");
+
         item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${series[i].img}"
-        alt='${series[i].title}' class='series-poster_result' draggable='false'/>`
+        alt='${series[i].title}' class='series-poster_result' draggable='false'/>
+        <div class='poster__description_layer'>
+            <p class='poster__description'>${series[i].title}<br>
+            (${getYear(series[i].first_air_date)})<br>
+            ${series[i].average}/10</p>
+        </div>`
 
         result.appendChild(item);
     }
 
 }
+
+const getYear = (resultDate) => {
+	let date = new Date(resultDate);
+	return date.getFullYear();
+};
