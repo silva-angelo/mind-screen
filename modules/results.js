@@ -1,22 +1,23 @@
 window.onload = () => {
+	const API_KEY = "699c5ef1665132d7f67266a73389f90a";
+
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 
-	//mindscreen.blah/results/?movie=true&search=star%20wars
-	//mindscreen.blah/results/?series=true&search=the%20walking%20dead
+	//mindscreen.blah/results/?media_type=movie&search=star%20wars
+	//mindscreen.blah/results/?media_type=tv&search=the%20walking%20dead
 
-	const movie = urlParams.get("movie");
-	const series = urlParams.get("series");
+	const mediaType = urlParams.get("media_type");
 	const searchQuery = urlParams.get("search");
 
-	const API_KEY = "699c5ef1665132d7f67266a73389f90a";
-
-	if (movie === "true") {
-		fetchMovies(API_KEY, searchQuery);
-	} else if (series === "true") {
-		fetchSeries(API_KEY, searchQuery);
-	} else {
-		fetchMovies(API_KEY, searchQuery);
+	switch (mediaType) {
+		case "tv":
+			fetchSeries(API_KEY, searchQuery);
+			break;
+		case "movie":
+		default:
+			fetchMovies(API_KEY, searchQuery);
+			break;
 	}
 };
 
@@ -48,6 +49,16 @@ const fetchMovies = (API_KEY, userInput) => {
 
 					gridContainer.appendChild(cell);
 				}
+				$(document).ready(function () {
+					$(".grid-container").slick({
+						rows: 2,
+						infinite: false,
+						arrows: true,
+						draggable: false,
+						slidesToShow: 5,
+						slidesToScroll: 6,
+					});
+				});
 			} else {
 				const p = document.createElement("p");
 				p.innerHTML = "No results found";
@@ -59,7 +70,7 @@ const fetchMovies = (API_KEY, userInput) => {
 
 const fetchSeries = (API_KEY, searchQuery) => {
 	const gridContainer = document.getElementById("grid-container");
-	
+
 	fetch(
 		`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&language=en-US&query=${searchQuery}`
 	)
@@ -85,6 +96,16 @@ const fetchSeries = (API_KEY, searchQuery) => {
 
 					gridContainer.appendChild(cell);
 				}
+
+				$(document).ready(function () {
+					$(".grid-container").slick({
+						rows: 2,
+						infinite: false,
+						draggable: false,
+						slidesToShow: 5,
+						slidesToScroll: 6,
+					});
+				});
 			} else {
 				const p = document.createElement("p");
 				p.innerHTML = "No results found";
@@ -99,33 +120,10 @@ const getYear = (resultDate) => {
 	return date.getFullYear();
 };
 
-const getDetails = async (posterWrap) => {
-	let poster = posterWrap.children[0];
-	const movieId = poster.id;
-	window.location.replace("../views/details.html" + "?movie_id=" + movieId);
-};
-
-// const moveOutPoster = async (poster) => {
-// 	poster.style.filter = "blur(0px)";
-// 	poster.style.border = "thick solid var(--alabaster)";
-// 	poster.style.filter = "brightness(100%)";
-
-// 	const posterWrap = poster.parentElement;
-// 	const posterDescription = posterWrap.children[1];
-
-// 	posterDescription.style.visibility = "hidden";
+// const getDetails = async (mediaType, posterWrap) => {
+// 	let poster = posterWrap.children[0];
+// 	const mediaId = poster.id;
+// 	window.location.replace(
+// 		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
+// 	);
 // };
-
-// const mouseOverPoster = async (poster) => {
-// 	poster.style.filter = "blur(2.5px)";
-// 	poster.style.border = "thick solid var(--maizeCrayola)";
-// 	poster.style.filter = "brightness(50%)";
-
-// 	const posterWrap = poster.parentElement;
-// 	const posterDescription = posterWrap.children[1];
-
-// 	posterDescription.style.visibility = "visible";
-// };
-
-//onmouseover="mouseOverPoster(this)"
-// onmouseout="moveOutPoster(this)"
