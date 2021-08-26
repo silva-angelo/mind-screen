@@ -50,21 +50,37 @@
     margin: 0;
 }
 
-#page__main-container__data__genres-and-amount {    
+#page__main-container__data__categories {    
     font-size: .85em;
     margin: .5em 0;    
 }
 
-#page__main-container__data__genres-and-amount__genres {
+#page__main-container__data__categories__genres {
     
 }
 
-#page__main-container__data__genres-and-amount__amount__seasons {       
+#page__main-container__data__categories__amount__seasons {       
     font-weight: bold;
 }
 
-#page__main-container__data__genres-and-amount__amount__episodes {
+#page__main-container__data__categories__amount__episodes {
     font-weight: bold;
+}
+
+#page__main-container__data__categories__trailer {
+    color: var(--timberwolf);
+    transition: 250ms;
+    background-color: var(--jet);
+    border: .1em solid var(--jet);    
+    border-radius: 1em;
+    padding: .5em;
+    text-decoration: none;
+}
+
+#page__main-container__data__categories__trailer:hover {
+    color: var(--maizeCrayola);
+    border: .1em solid var(--maizeCrayola);
+    box-shadow: 0 0 .2em var(--maizeCrayola);
 }
 
 #page__main-container__data__release-date {
@@ -99,7 +115,8 @@
 
 }
 
-#page__main-container__data__cast-data__actors-container {       
+#page__main-container__data__cast-data__actors-container { 
+    cursor: pointer;      
     max-width: 65vw;    
 }
 

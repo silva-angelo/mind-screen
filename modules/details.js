@@ -1,7 +1,7 @@
 window.onload = () => {
 
-    let media_type = 'tv'; // 'movie' or 'tv'
-    let media_id = 84958; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437 Loki: 84958
+    let media_type = 'movie'; // 'movie' or 'tv'
+    let media_id = 4512; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437 Loki: 84958
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(media_type, media_id, API_KEY);
@@ -239,14 +239,14 @@ const showData = (mediaData, peopleData, configImages) => {
     
         <h1 id='page__main-container__data__movie-title'>${title}</h1>
         <p id='page__main-container__data__release-year'>${releaseYear}</p>
-        <div id='page__main-container__data__genres-and-amount'>
-            <span id='page__main-container__data__genres-and-amount__genres'>${genres}</span>
-            <span id='page__main-container__data__genres-and-amount__amount' style='display:none;'>
+        <div id='page__main-container__data__categories'>
+            <span id='page__main-container__data__categories__genres'>${genres}</span>
+            <span id='page__main-container__data__categories__amount' style='display:none;'>
                 —
-                <span id='page__main-container__data__genres-and-amount__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__genres-and-amount__amount__seasons'>${numberOfSeasons}</span>
+                <span id='page__main-container__data__categories__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__categories__amount__seasons'>${numberOfSeasons}</span>
             </span>
             —
-            <span id='#page__main-container__data__genres-and-amount__trailer'><a href='${trailer}' target='_blank'>Trailer</a></span>
+            <a id='page__main-container__data__categories__trailer' href='${trailer}'>Trailer</a>
         </div>
         <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>        
         <p id='page__main-container__data__synopsis'>${synopsis}</p>
@@ -265,11 +265,11 @@ const showData = (mediaData, peopleData, configImages) => {
             <div id='page__main-container__data__cast-data__actors-container'>                
             </div>
         </div>
-    </div>
+    </div>    
     `;
 
     if (!isMovie) {
-        let showEpsAndSeason = document.getElementById('page__main-container__data__genres-and-amount__amount');
+        let showEpsAndSeason = document.getElementById('page__main-container__data__categories__amount');
         showEpsAndSeason.setAttribute('style', 'display: inline;');
     }
 
@@ -307,7 +307,14 @@ const showData = (mediaData, peopleData, configImages) => {
 
     // CAST CAROUSEL (SLICK)
 
+
+
     $(document).ready(function () {
+
+        $('#page__main-container__data__categories__trailer').magnificPopup({
+            type: 'iframe'
+        });
+
         $('#page__main-container__data__cast-data__actors-container').slick({
             infinite: false,
             lazyLoad: 'ondemand',
@@ -339,6 +346,8 @@ const showData = (mediaData, peopleData, configImages) => {
                 }
             ],
         });
+
+
     });
 }
 
@@ -347,10 +356,10 @@ const getError = (error) => {
 }
 
 // TODO
-// GET TRAILERS
 // RESPONSIVE CHECKS/MEDIA QUERIES
 
 // ADD FAVICON TO ALL HTMLs
+// CHANGE PAGE TITLES TO MINDSCREEN?
 // ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
 // ADD TMBD LOGO/CREDITS
 // CHECK IF ALL IMGS HAVE ALT FOR ACCESSIBILITY
