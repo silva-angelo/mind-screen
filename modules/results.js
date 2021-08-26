@@ -7,112 +7,107 @@ window.onload = () => {
 	//mindscreen.blah/results/?media_type=movie&search=star%20wars
 	//mindscreen.blah/results/?media_type=tv&search=the%20walking%20dead
 
-	const mediaType = urlParams.get("media_type");
+	let mediaType = urlParams.get("media_type");
 	const searchQuery = urlParams.get("search");
 
 	switch (mediaType) {
 		case "tv":
-			fetchSeries(API_KEY, searchQuery);
+			fetchResults(API_KEY, mediaType, searchQuery);
 			break;
 		case "movie":
 		default:
-			fetchMovies(API_KEY, searchQuery);
+			mediaType = "movie";
+			fetchResults(API_KEY, mediaType, searchQuery);
 			break;
 	}
 };
 
-const fetchMovies = (API_KEY, userInput) => {
-	const gridContainer = document.getElementById("grid-container");
-
+const fetchResults = (API_KEY, mediaType, searchQuery) => {
 	fetch(
-		`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${userInput}`
+		`https://api.themoviedb.org/3/search/${mediaType}?api_key=${API_KEY}&language=en-US&query=${searchQuery}`
 	)
-		.then((response) => response.json())
-		.then((data) => {
-			if (data.total_results > 0) {
-				const movies = data.results;
-
-				for (let i = 0; i < movies.length; i++) {
-					const cell = document.createElement("div");
-					cell.setAttribute("class", "poster__wrap");
-					cell.setAttribute("onclick", "getDetails(this)");
-
-					cell.innerHTML = `
-						<img src="http://image.tmdb.org/t/p/original/${movies[i].poster_path}" 
-							alt="${movies[i].original_title}" class="poster_result"
-							id="${movies[i].id}" draggable='false'/>
-						<div class='poster__description_layer'>
-							<p class='poster__description'>${movies[i].original_title}<br>
-								(${getYear(movies[i].release_date)})<br>
-								${movies[i].vote_average}/10</p>
-						</div>`;
-
-					gridContainer.appendChild(cell);
-				}
-				$(document).ready(function () {
-					$(".grid-container").slick({
-						rows: 2,
-						infinite: false,
-						arrows: true,
-						draggable: false,
-						slidesToShow: 5,
-						slidesToScroll: 6,
-					});
-				});
-			} else {
-				const p = document.createElement("p");
-				p.innerHTML = "No results found";
-				gridContainer.appendChild(p);
-			}
-		})
+		.then((response) => parseResponse(response))
+		.then((data) => getResults(data, mediaType))
+		.then((results) => displayResults(results))
 		.catch((err) => console.error(err));
 };
 
-const fetchSeries = (API_KEY, searchQuery) => {
-	const gridContainer = document.getElementById("grid-container");
+const parseResponse = (response) => {
+	if (!response.ok) {
+		throw new Error("Error: " + response.status);
+	}
 
-	fetch(
-		`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&language=en-US&query=${searchQuery}`
-	)
-		.then((response) => response.json())
-		.then((data) => {
-			if (data.total_results > 0) {
-				const series = data.results;
+	return response.json();
+};
 
-				for (let i = 0; i < series.length; i++) {
-					const cell = document.createElement("div");
-					cell.setAttribute("class", "poster__wrap");
-					cell.setAttribute("onclick", "getDetails(this)");
+const getResults = (data, mediaType) => {
+	let result = data.results.map((results) => {
+		switch (mediaType) {
+			case "movie":
+				return {
+					id: results.id,
+					title: results.original_title,
+					poster: results.poster_path,
+					date: results.release_date,
+					rating: results.vote_average,
+					media_type: mediaType,
+				};
+			case "tv":
+				return {
+					id: results.id,
+					title: results.original_name,
+					poster: results.poster_path,
+					date: results.first_air_date,
+					rating: results.vote_average,
+					media_type: mediaType,
+				};
+		}
+	});
 
-					cell.innerHTML = `
-						<img src="http://image.tmdb.org/t/p/original/${series[i].poster_path}" 
-							alt="${series[i].name}" class="poster_result"
-							id="${series[i].id}" draggable='false'/>
+	return result;
+};
+
+const displayResults = (results) => {
+	if (results.length > 0) {
+		const gridContainer = document.getElementById("grid-container");
+
+		for (let i = 0; i < results.length; i++) {
+			const cell = document.createElement("div");
+
+			cell.setAttribute("class", "poster__wrap");
+			cell.setAttribute("onclick", "getDetails(this)");
+
+			cell.innerHTML = `
+						<img src="http://image.tmdb.org/t/p/original/${results[i].poster}" 
+							alt="${results[i].title}" class="poster_result"
+							id="${results[i].media_type} ${
+				results[i].id
+			}" draggable='false' loading='lazy'/>
 						<div class='poster__description_layer'>
-							<p class='poster__description'>${series[i].name}<br>
-								(${getYear(series[i].first_air_date)})<br>
-								${series[i].vote_average}/10</p>
+							<p class='poster__description'>${results[i].title}<br>
+								(${getYear(results[i].date)})<br>
+								${results[i].rating}/10</p>
 						</div>`;
 
-					gridContainer.appendChild(cell);
-				}
+			gridContainer.appendChild(cell);
+		}
 
-				$(document).ready(function () {
-					$(".grid-container").slick({
-						rows: 2,
-						infinite: false,
-						draggable: false,
-						slidesToShow: 5,
-						slidesToScroll: 6,
-					});
-				});
-			} else {
-				const p = document.createElement("p");
-				p.innerHTML = "No results found";
-				gridContainer.appendChild(p);
-			}
-		})
-		.catch((err) => console.error(err));
+		$(document).ready(function () {
+			$(".grid-container").slick({
+				rows: 2,
+				infinite: false,
+				arrows: true,
+				draggable: false,
+				slidesToShow: 5,
+				slidesToScroll: 5,
+			});
+		});
+
+	} else {
+		const p = document.createElement("p");
+		p.innerHTML = "No results found";
+		gridContainer.appendChild(p);
+	}
 };
 
 const getYear = (resultDate) => {
@@ -120,10 +115,13 @@ const getYear = (resultDate) => {
 	return date.getFullYear();
 };
 
-// const getDetails = async (mediaType, posterWrap) => {
-// 	let poster = posterWrap.children[0];
-// 	const mediaId = poster.id;
-// 	window.location.replace(
-// 		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
-// 	);
-// };
+const getDetails = async (posterWrap) => {
+	let poster = posterWrap.children[0];
+	const idInfo = poster.id.split("s");
+	const mediaType = idInfo[0];
+	const mediaId = idInfo[1];
+
+	window.location.replace(
+		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
+	);
+};
