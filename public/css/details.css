@@ -9,39 +9,39 @@
 }
 
 #page__main-container {
-    display: flex;    
+    display: flex;
     padding: 1em;
 }
 
 #page__main-container__poster {
     z-index: 1;
-    align-self: center;    
+    align-self: center;
     border-radius: 2em;
-    margin: 0 1em 0 1em;    
-    max-width: 23vw;        
+    margin: 0 1em 0 1em;
+    max-width: 23vw;
 }
 
-#page__main-container__data {    
-    z-index: 1; /* deleting this makes text unselectable */    
+#page__main-container__data {
+    z-index: 1; /* deleting this makes text unselectable */
     border-radius: 2em;
-    padding: 2em;    
+    padding: 2em;
 }
 
-#page__main-container__backdrop {        
-    position: absolute;    
-    object-fit: cover;     
-    border-radius: 2em;    
-    opacity: 10%;       
-    width: 94%;  
-    height: 75vh; 
+#page__main-container__backdrop {
+    position: absolute;
+    object-fit: cover;
+    border-radius: 2em;
+    opacity: 10%;
+    width: 94%;
+    height: 75vh;
 }
 
-#page__main-container__data__movie-title {    
+#page__main-container__data__movie-title {
     color: var(--maizeCrayola);
     font-size: 3em;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 0;    
+    margin: 0;
 }
 
 #page__main-container__data__release-year {
@@ -50,16 +50,16 @@
     margin: 0;
 }
 
-#page__main-container__data__categories {    
+#page__main-container__data__categories {
     font-size: .85em;
-    margin: .5em 0;    
+    margin: .5em 0;
 }
 
 #page__main-container__data__categories__genres {
-    
+
 }
 
-#page__main-container__data__categories__amount__seasons {       
+#page__main-container__data__categories__amount__seasons {
     font-weight: bold;
 }
 
@@ -71,7 +71,7 @@
     color: var(--timberwolf);
     transition: 250ms;
     background-color: var(--jet);
-    border: .1em solid var(--jet);    
+    border: .1em solid var(--jet);
     border-radius: 1em;
     padding: .5em;
     text-decoration: none;
@@ -88,7 +88,7 @@
 }
 
 #page__main-container__data__synopsis {
-    font-style: italic;    
+    font-style: italic;
 }
 
 #page__main-container__data__credits {
@@ -115,14 +115,14 @@
 
 }
 
-#page__main-container__data__cast-data__actors-container { 
-    cursor: pointer;      
-    max-width: 65vw;    
+#page__main-container__data__cast-data__actors-container {
+    cursor: pointer;
+    max-width: 65vw;
 }
 
 .page__main-container__data__cast__actors-container__item {
     margin: 0 1.5em 1em;
-    padding: 0;          
+    padding: 0;
     text-align: center;
 }
 
@@ -133,19 +133,19 @@
     margin: 0 auto;
 }
 
-.page__main-container__data__cast__actors-container__item__name {     
+.page__main-container__data__cast__actors-container__item__name {
     font-weight: bold;
     font-size: .9em;
     margin: .5em 0;
 }
 
-.page__main-container__data__cast__actors-container__item__character {    
+.page__main-container__data__cast__actors-container__item__character {
     font-style: italic;
     font-size: .75em;
     margin: .5em 0;
 }
 
 /* fixes carousel when items in container below minimum displayed items (5) */
-.slick-list {       
+.slick-list {
     width: 100%;
 }
