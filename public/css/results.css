@@ -12,11 +12,11 @@
 }
 
 #grid-container {
-	margin: 2.5%;
-	display: grid;
-	grid-template-columns: 18% 18% 18% 18% 18%;
-	column-gap: 2.5%;
-	row-gap: 2%;
+	margin: 5%;
+	/* display: grid; */
+	/* grid-template-columns: 18% 18% 18% 18% 18%; */
+	/* column-gap: 2.5%; */
+	/* row-gap: 2%; */
 }
 
 .poster__wrap {
@@ -59,4 +59,8 @@
 	filter: blur(2.5px);
 	border: thick solid var(--maizeCrayola);
 	filter: brightness(50%);
+}
+
+.slick-list {       
+    max-width: 100%;
 }
