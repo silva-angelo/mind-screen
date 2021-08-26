@@ -12,7 +12,7 @@ const fetchMovie = async (media_type, media_id, API_KEY) => {
     let container = document.getElementById('page__main-container');
     container.innerHTML = "<p>Getting information...</p>";
 
-    const MEDIA_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}?api_key=${API_KEY}&language=en-US`);
+    const MEDIA_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}?api_key=${API_KEY}&language=en-US&append_to_response=videos`);
 
     let PEOPLE_DATA_ENDPOINT;
 
@@ -144,6 +144,20 @@ const showData = (mediaData, peopleData, configImages) => {
         return genresString;
     }
 
+    let getTrailer = () => {
+        let videos = mediaData.videos.results; // Returns the first released video.
+        let trailerURL = '';
+
+        if (videos.length > 0) {
+            let trailerKey = videos[videos.length - 1].key;
+            trailerURL = 'https://www.youtube.com/watch?v=' + trailerKey;
+        } else {
+            trailerURL = 'https://www.youtube.com/watch?v=3YiIxopZKpY'; // TODO: Leave this if trailer not found?
+        }
+
+        return trailerURL;
+    }
+
     // MEDIA DATA
     // Movies contain mediaData.original_title, TV series contain mediaData.original_name
     let isMovie = mediaData.original_title;
@@ -179,8 +193,7 @@ const showData = (mediaData, peopleData, configImages) => {
     let releaseYear = getReleaseYear();
     let synopsis = mediaData.overview;
     let genres = getGenres();
-
-    console.log(genres)
+    let trailer = getTrailer();
 
     // PEOPLE DATA
     let crew = peopleData.crew;
@@ -232,6 +245,8 @@ const showData = (mediaData, peopleData, configImages) => {
                 —
                 <span id='page__main-container__data__genres-and-amount__amount__episodes'>${numberOfEpisodes}</span> in <span id='page__main-container__data__genres-and-amount__amount__seasons'>${numberOfSeasons}</span>
             </span>
+            —
+            <span id='#page__main-container__data__genres-and-amount__trailer'><a href='${trailer}' target='_blank'>Trailer</a></span>
         </div>
         <p id='page__main-container__data__release-date'>Release Date: ${releaseDateFormatted}</p>        
         <p id='page__main-container__data__synopsis'>${synopsis}</p>

@@ -36,7 +36,7 @@
     height: 75vh; 
 }
 
-#page__main-container__data__movie-title {
+#page__main-container__data__movie-title {    
     color: var(--maizeCrayola);
     font-size: 3em;
     font-weight: bold;
