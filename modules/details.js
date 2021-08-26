@@ -1,7 +1,7 @@
 window.onload = () => {
 
     let media_type = 'tv'; // 'movie' or 'tv'
-    let media_id = 84958; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437
+    let media_id = 84958; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437 Loki: 84958
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(media_type, media_id, API_KEY);
@@ -332,6 +332,7 @@ const getError = (error) => {
 }
 
 // TODO
+// GET TRAILERS
 // RESPONSIVE CHECKS/MEDIA QUERIES
 
 // ADD FAVICON TO ALL HTMLs
