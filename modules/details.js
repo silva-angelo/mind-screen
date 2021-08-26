@@ -1,7 +1,13 @@
 window.onload = () => {
+    let params = new URLSearchParams(document.location.search.substring(1));
+    let media_type = params.get("media_type");
+    let media_id = parseInt(params.get("media_id"), 10)
 
-    let media_type = 'movie'; // 'movie' or 'tv'
-    let media_id = 4512; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437 Loki: 84958
+    //http://127.0.0.1:5500/views/details.html?media_type=movie&media_id=603      <- Matrix
+    //http://127.0.0.1:5500/views/details.html?media_type=tv&media_id=84958         <- Loki
+
+    // let media_type = 'tv'; // 'movie' or 'tv'
+    // let media_id = 1396; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437 Loki: 84958
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(media_type, media_id, API_KEY);
@@ -160,8 +166,8 @@ const showData = (mediaData, peopleData, configImages) => {
 
     // MEDIA DATA
     // Movies contain mediaData.original_title, TV series contain mediaData.original_name
-    let isMovie = mediaData.original_title;
     // let isSeries = !mediaData.original_title;
+    let isMovie = mediaData.original_title;
 
     let title = '';
     let releaseDateUSFormat = '';
@@ -209,7 +215,6 @@ const showData = (mediaData, peopleData, configImages) => {
     }
 
     let screenplay = getCrewNames('Writing');
-
     let cast = peopleData.cast;
 
     // IMAGES    
@@ -229,6 +234,7 @@ const showData = (mediaData, peopleData, configImages) => {
     }
 
     // HTML UPDATE
+
     let container = document.getElementById('page__main-container');
 
     container.innerHTML = `
@@ -305,9 +311,7 @@ const showData = (mediaData, peopleData, configImages) => {
                 `
     }
 
-    // CAST CAROUSEL (SLICK)
-
-
+    // TRAILER POP-UP (MAGNIFIC POPUP) & CAST CAROUSEL (SLICK)
 
     $(document).ready(function () {
 
