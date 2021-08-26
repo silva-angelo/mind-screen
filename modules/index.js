@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
     const popular_Movie_ENDPOINT=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-
+    const popular_Series_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
     
 
     $('#searchMovie').change((event) => {
@@ -21,27 +21,15 @@ $(document).ready(function () {
     fetch(popular_Movie_ENDPOINT)
         .then(parsedResponse)
         .then(getPopularMovies)
-        .then(renderResults)
-        .catch(console.log('ERROR!!!'));
+        .then(renderResultsMovies)
+        .catch((err) => console.error(err));
+
+    fetch(popular_Series_ENDPOINT)
+        .then(parsedResponse)
+        .then(getPopularSeries)
+        .then(renderResultsSeries)
+        .catch((err) => console.error(err));
 });
-
-//Get Popular
-
-/*const fetchPopularMovie = async (popular_Movie_ENDPOINT) => {
-
-    console.log(popular_Movie_ENDPOINT);
-
-    let container = document.getElementById('page__main-container');
-    container.innerHTML = "<p>Getting movie information...</p>";
-
-    try {
-        let parsedResponse = await parseResponse(popular_Movie_ENDPOINT);
-        let popularData = await getPopularData(parsedResponse);
-        console.log(popularData);
-    } catch (error) {
-        console.log('Problem!');
-    }
-}*/
 
 function parsedResponse(response) {
     
@@ -65,15 +53,43 @@ function getPopularMovies(data){
     return result;
 }
 
-function renderResults(movies) {
+function getPopularSeries(data){
+    console.log(data);
+   let result = data.results.map((series) => {
+        return {
+            img: series.poster_path,
+            title: series.original_name,
+            average: series.vote_average,
+        };
+    });
+
+    return result;
+}
+
+function renderResultsMovies(movies) {
     //page_list_popular
 
-    const result = document.getElementById('page_list_popular');
+    const result = document.getElementById('page_popular_movies');
 
     for(let i=0; i<5; i++) {
         const item = document.createElement('div');
         item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${movies[i].img}"
         alt='${movies[i].title}' class='movie-poster_result' draggable='false'/>`
+
+        result.appendChild(item);
+    }
+
+}
+
+function renderResultsSeries(series) {
+    //page_list_popular
+
+    const result = document.getElementById('page_popular_series');
+
+    for(let i=0; i<5; i++) {
+        const item = document.createElement('div');
+        item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${series[i].img}"
+        alt='${series[i].title}' class='series-poster_result' draggable='false'/>`
 
         result.appendChild(item);
     }
