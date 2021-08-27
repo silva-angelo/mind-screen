@@ -6,14 +6,13 @@ $(document).ready(function () {
     
     $('#searchMovie').keypress(function (e) {
         if (e.which == 13) {
-            let search = e.target.value;
-            let type = document.getElementById('mediaType');
+            let search = document.getElementById('searchMovie').value; //e.target.value;
+            let type = document.getElementById('mediaType').value;
             if (!search) {
                 return;
             }
-            window.location.replace('../views/results.html?type=' + type + '&search=' + search);
-            //$('#searchForm').submit();
-            return false;
+            window.location.assign('../views/results.html?media_type=' + type + '&search=' + search);
+        return false;
         }
     })
 
@@ -35,7 +34,6 @@ function parsedResponse(response) {
     if(!response.ok) {
         throw new Error ('Error: ' + endpointsResponse.status);
     }
-    console.log('bla3');
     return response.json();
 }
 
@@ -44,6 +42,7 @@ function getPopularMovies(data){
    let result = data.results.map((movies) => {
         return {
             id: movies.id,
+            mediaType: 'movie',
             img: movies.poster_path,
             title: movies.original_title,
             average: movies.vote_average,
@@ -56,13 +55,14 @@ function getPopularMovies(data){
 
 function getPopularSeries(data){
     console.log(data);
-   let result = data.results.map((series) => {
+   let result = data.results.map((tv) => {
         return {
-            id: series.id,
-            img: series.poster_path,
-            title: series.original_name,
-            average: series.vote_average,
-            first_air_date: series.first_air_date,
+            id: tv.id,
+            mediaType: 'tv',
+            img: tv.poster_path,
+            title: tv.original_name,
+            average: tv.vote_average,
+            first_air_date: tv.first_air_date,
         };
     });
 
@@ -81,7 +81,7 @@ function renderResultsMovies(movies) {
 
         item.innerHTML = `
             <img src="http://image.tmdb.org/t/p/original/${movies[i].img}"
-                alt='${movies[i].title}' class='movie-poster_result' id='${movies[i].id}'draggable='false'/>
+                alt='${movies[i].title}' class='movie-poster_result' id='${movies[i].mediaType} ${movies[i].id}'draggable='false'/>
             <div class='poster__description_layer'>
                 <p class='poster__description'>${movies[i].title}<br>
                 (${getYear(movies[i].release_date)})<br>
@@ -93,21 +93,22 @@ function renderResultsMovies(movies) {
 
 }
 
-function renderResultsSeries(series) {
+function renderResultsSeries(tv) {
     //page_list_popular
 
-    const result = document.getElementById('page_popular_series');
+    const result = document.getElementById('page_popular_tv');
 
     for(let i=0; i<5; i++) {
         const item = document.createElement('div');
-        item.setAttribute("class", "poster__wrap__series");
+        item.setAttribute("class", "poster__wrap__tv");
+        item.setAttribute('onclick', 'getDetails(this)');
 
-        item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${series[i].img}"
-        alt='${series[i].title}' class='series-poster_result' id='${series[i].id}'draggable='false'/>
+        item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${tv[i].img}"
+        alt='${tv[i].title}' class='tv-poster_result' id='${tv[i].mediaType} ${tv[i].id}'draggable='false'/>
         <div class='poster__description_layer'>
-            <p class='poster__description'>${series[i].title}<br>
-            (${getYear(series[i].first_air_date)})<br>
-            ${series[i].average}/10</p>
+            <p class='poster__description'>${tv[i].title}<br>
+            (${getYear(tv[i].first_air_date)})<br>
+            ${tv[i].average}/10</p>
         </div>`
 
         result.appendChild(item);
@@ -120,8 +121,10 @@ const getYear = (resultDate) => {
 	return date.getFullYear();
 }
 
-const getDetails = (getMovie) => {
-    let poster = getMovie.children[0];
-    const id = getMovie.id;
-    window.location.replace("../views/details.html" + "?movie_id=" + id);
+const getDetails = (getMedia) => {
+    let poster = getMedia.children[0];
+    const idInfo = poster.id.split(' ');
+    const id = idInfo[1];
+    const mediaType = idInfo[0]
+    window.location.assign('../views/details.html?media_type='+mediaType+'&media_id='+id);
 }
