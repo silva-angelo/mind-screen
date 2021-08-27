@@ -121,7 +121,7 @@ const getDetails = async (posterWrap) => {
 	const mediaType = idInfo[0];
 	const mediaId = idInfo[1];
 
-	window.location.replace(
+	window.location.assign(
 		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
 	);
 };
