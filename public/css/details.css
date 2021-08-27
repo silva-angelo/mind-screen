@@ -155,3 +155,34 @@
 .slick-list {
     width: 100%;
 }
+
+/* MEDIA QUERIES */
+/* small screen */
+@media (max-width: 767px) and (orientation: portrait) {
+    #page__main-container {            
+        text-align: center;    
+        font-size: .75em;
+    }
+
+    #page__main-container__poster {
+        display: none;
+    }
+}
+
+@media (max-width: 764px) and (orientation: landscape) {
+    #page__main-container {            
+        text-align: center;    
+        font-size: .75em;
+    }
+
+    #page__main-container__poster {
+        display: none;
+    }       
+}
+
+/* medium screen */
+@media (max-width: 1279px) and (min-width: 768px) and (orientation: landscape) {
+    #page__main-container {
+        font-size: .75em;
+    }
+}

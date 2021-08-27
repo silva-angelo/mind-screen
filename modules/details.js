@@ -33,7 +33,7 @@ const fetchMovie = async (media_type, media_id, API_KEY) => {
     try {
         let ENDPOINTS = await Promise.all([MEDIA_DATA_ENDPOINT, PEOPLE_DATA_ENDPOINT, CONFIG_IMAGES_ENDPOINT]);
 
-        let parsedResponse = await parseResponse(ENDPOINTS);
+        let parsedResponse = parseResponse(ENDPOINTS);
 
         let mediaData = await getMediaData(parsedResponse);
         let peopleData = await getPeopleData(parsedResponse);
@@ -330,22 +330,22 @@ const showData = (mediaData, peopleData, configImages) => {
                     breakpoint: 1024,
                     settings: {
                         slidesToShow: 3,
-                        slidesToScroll: 3,
+                        slidesToScroll: 3.5,
                         infinite: false,
                     }
                 },
                 {
-                    breakpoint: 600,
+                    breakpoint: 767,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 2.5,
                         slidesToScroll: 2
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
+                        slidesToShow: 2.5,
+                        slidesToScroll: 2
                     }
                 }
             ],
