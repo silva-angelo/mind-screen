@@ -4,19 +4,18 @@ $(document).ready(function () {
     const popular_Movie_ENDPOINT=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     const popular_Series_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
     
-
-    $('#searchMovie').change((event) => {
-
-        let type = document.getElementById('mediaType')
-
-        let search = event.target.value
-
-        if (!search) {
-            return;
+    $('#searchMovie').keypress(function (e) {
+        if (e.which == 13) {
+            let search = e.target.value;
+            let type = document.getElementById('mediaType');
+            if (!search) {
+                return;
+            }
+            window.location.replace('../views/results.html?type=' + type + '&search=' + search);
+            //$('#searchForm').submit();
+            return false;
         }
-
-        window.location.replace('../views/results.html' + '?type=' + type + '&search=' + search);
-    });
+    })
 
     fetch(popular_Movie_ENDPOINT)
         .then(parsedResponse)
