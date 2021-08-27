@@ -10,7 +10,9 @@
 
 #page__main-container {
     display: flex;
+    position: relative;
     padding: 1em;
+    height: auto;
 }
 
 #page__main-container__poster {
@@ -27,13 +29,17 @@
     padding: 2em;
 }
 
-#page__main-container__backdrop {
-    position: absolute;
+#page__main-container__backdrop {        
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;     
     border-radius: 2em;
-    opacity: 10%;
-    width: 94%;
-    height: 75vh;
+    opacity: .25;
+    width: 100%;    
+    height: 100%;
 }
 
 #page__main-container__data__movie-title {
@@ -148,29 +154,4 @@
 /* fixes carousel when items in container below minimum displayed items (5) */
 .slick-list {
     width: 100%;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-    
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-
 }
