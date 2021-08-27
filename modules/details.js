@@ -3,11 +3,13 @@ window.onload = () => {
     let media_type = params.get("media_type");
     let media_id = parseInt(params.get("media_id"), 10)
 
-    //http://127.0.0.1:5500/views/details.html?media_type=movie&media_id=603      <- Matrix
-    //http://127.0.0.1:5500/views/details.html?media_type=tv&media_id=84958         <- Loki
+    // URL EXAMPLES
+    // http://127.0.0.1:5500/views/details.html?media_type=movie&media_id=603      <- Matrix
+    // http://127.0.0.1:5500/views/details.html?media_type=tv&media_id=84958         <- Loki
 
     // let media_type = 'tv'; // 'movie' or 'tv'
-    // let media_id = 1396; // Matrix: 603 Endgame: 299534 Bo Burnham: 823754 Occupy Wallstreet: 158993 Hannibal: 40008 GoT: 1399 Firefly: 1437 Loki: 84958
+    // let media_id = 1396; 
+    // Matrix: 603 | Endgame: 299534 | Bo Burnham: 823754 | Occupy Wallstreet: 158993 | Hannibal: 40008 | GoT: 1399 | Firefly: 1437 | Loki: 84958
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
 
     fetchMovie(media_type, media_id, API_KEY);
@@ -60,30 +62,23 @@ const parseResponse = (endpointsResponse) => {
 }
 
 const getMediaData = (data) => {
-
     let mediaData = data[0];
-
     return mediaData;
 }
 
 const getPeopleData = (data) => {
-
     let peopleData = data[1];
-
     return peopleData;
 }
 
 const getImagesConfig = (data) => {
-
     let configData = data[2];
-
     return configData;
 }
 
 const showData = (mediaData, peopleData, configImages) => {
 
     let getCrewNames = (activity) => {
-
         let filteredPersons = [];
         let filteredPersonsNames = '';
 
@@ -119,23 +114,17 @@ const showData = (mediaData, peopleData, configImages) => {
     };
 
     let getReleaseYear = () => {
-
         let year = releaseDateUSFormat.split('-');
-
         return year[0];
     }
 
     let getReleaseDateFormatted = () => {
-
         let releaseDateElementsArray = releaseDateUSFormat.split('-').reverse().join('/');
-
         return releaseDateElementsArray;
     }
 
     let getGenres = () => {
-
         let genres = mediaData.genres;
-
         let genresString = ' ';
 
         for (let i = 0; i < genres.length; i++) {
@@ -350,21 +339,9 @@ const showData = (mediaData, peopleData, configImages) => {
                 }
             ],
         });
-
-
     });
 }
 
 const getError = (error) => {
     console.log(error);
 }
-
-// TODO
-// RESPONSIVE CHECKS/MEDIA QUERIES
-
-// ADD FAVICON TO ALL HTMLs
-// CHANGE PAGE TITLES TO MINDSCREEN?
-// ADD PLACEHOLDER FOR UNAVAILABLE IMAGES IN ALL HTMLs
-// ADD TMBD LOGO/CREDITS
-// CHECK IF ALL IMGS HAVE ALT FOR ACCESSIBILITY
-// HIDE APIKEY?
