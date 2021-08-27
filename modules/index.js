@@ -43,6 +43,7 @@ function getPopularMovies(data){
     console.log(data);
    let result = data.results.map((movies) => {
         return {
+            id: movies.id,
             img: movies.poster_path,
             title: movies.original_title,
             average: movies.vote_average,
@@ -57,6 +58,7 @@ function getPopularSeries(data){
     console.log(data);
    let result = data.results.map((series) => {
         return {
+            id: series.id,
             img: series.poster_path,
             title: series.original_name,
             average: series.vote_average,
@@ -75,11 +77,11 @@ function renderResultsMovies(movies) {
     for(let i=0; i<5; i++) {
         const item = document.createElement('div');
         item.setAttribute('class', 'poster__wrap__movies');
-        item.setAttribute('onclick', 'getDetails')
+        item.setAttribute('onclick', 'getDetails(this)');
 
         item.innerHTML = `
             <img src="http://image.tmdb.org/t/p/original/${movies[i].img}"
-                alt='${movies[i].title}' class='movie-poster_result' draggable='false'/>
+                alt='${movies[i].title}' class='movie-poster_result' id='${movies[i].id}'draggable='false'/>
             <div class='poster__description_layer'>
                 <p class='poster__description'>${movies[i].title}<br>
                 (${getYear(movies[i].release_date)})<br>
@@ -101,7 +103,7 @@ function renderResultsSeries(series) {
         item.setAttribute("class", "poster__wrap__series");
 
         item.innerHTML = `<img src="http://image.tmdb.org/t/p/original/${series[i].img}"
-        alt='${series[i].title}' class='series-poster_result' draggable='false'/>
+        alt='${series[i].title}' class='series-poster_result' id='${series[i].id}'draggable='false'/>
         <div class='poster__description_layer'>
             <p class='poster__description'>${series[i].title}<br>
             (${getYear(series[i].first_air_date)})<br>
@@ -116,4 +118,10 @@ function renderResultsSeries(series) {
 const getYear = (resultDate) => {
 	let date = new Date(resultDate);
 	return date.getFullYear();
-};
+}
+
+const getDetails = (getMovie) => {
+    let poster = getMovie.children[0];
+    const id = getMovie.id;
+    window.location.replace("../views/details.html" + "?movie_id=" + id);
+}
