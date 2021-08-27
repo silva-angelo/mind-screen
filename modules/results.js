@@ -117,7 +117,7 @@ const getYear = (resultDate) => {
 
 const getDetails = async (posterWrap) => {
 	let poster = posterWrap.children[0];
-	const idInfo = poster.id.split("\s");
+	const idInfo = poster.id.split(" ");
 	const mediaType = idInfo[0];
 	const mediaId = idInfo[1];
 
