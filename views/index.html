@@ -26,17 +26,17 @@
         </div>
     </section>
     <section>
-        <form action="results.html">
-            <input type="radio" id="movie" name="">
-            <label for="movie">Movie</label>
-            <input type="radio" id="series" name="">
-            <label for="series">Series</label><br>
-            <input type="text" name="" id="searchMovie" placeholder="Search Movie">
+        <form id='searchForm' action="results.html">
+            <select name="type" id="mediaType" >
+                <option value="movie">Movie</option>
+                <option value="tv">Series</option>
+            </select>
+            <input type="text" name="" id="searchMovie" placeholder="Search">
         </form>
     </section>
     <section id="page_popular_movies">
     </section>
-       <section id='page_popular_series'>
+       <section id='page_popular_tv'>
        </section>
     </section>
 </body>

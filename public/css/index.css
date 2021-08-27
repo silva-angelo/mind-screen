@@ -20,7 +20,7 @@ body {
     0% {filter: brightness(100%);}
     25% {filter: brightness(110%);}
     50% {filter: brightness(105%);}
-    75% {filter: brightness(500%);}
+    75% {filter: brightness(200%);}
     100% {filter: brightness(200%);}
 }
 
@@ -47,21 +47,44 @@ body {
     width: 40%;
 }
 
+#searchForm {
+    display: flex;
+    justify-content: center;
+}
+
 #searchMovie {
     display: block;
-    padding: 15px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 2px;
     margin-top: 10%;
+    margin-left: 0.3em;
     background-color: var(--eerieBlack);
-    width: 50%;
+    width: 40%;
     border: 3px solid var(--eerieBlack);
     color: var(--alabaster);
-    border-radius: 2em;
+    border-radius: 0 2em 2em 0;
     transition: 500ms;
+
+}
+
+#mediaType {
+    display: block;
+    padding: 2px;
+    margin-top: 10%;
+    background-color: var(--eerieBlack);
+    width: 6%;
+    border: 3px solid var(--eerieBlack);
+    color: #ffffff54;
+    border-radius: 2em 0 0 2em;
+    transition: 500ms;
+
 }
 
 #searchMovie:focus {
+    border: 3px solid var(--maizeCrayola);
+    outline: none;
+}
+
+#mediaType:focus {
     border: 3px solid var(--maizeCrayola);
     outline: none;
 }
@@ -76,7 +99,7 @@ body {
     background-color: var(--eerieBlack);
 }
 
-#page_popular_series {
+#page_popular_tv {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -91,7 +114,7 @@ body {
     text-align: center;
 }
 
-.poster__wrap__series {
+.poster__wrap__tv {
     position: relative;
     text-align: center;
 }
@@ -104,7 +127,7 @@ body {
 	height: 200px;
 }
 
-.series-poster_result {
+.tv-poster_result {
     margin: 2em;
     border: thick solid var(--eerieBlack);
 	border-radius: 10%;
@@ -112,7 +135,7 @@ body {
 	height: 200px;
 }
 
-.poster__wrap__series {
+.poster__wrap__tv {
     position: relative;
     text-align: center;
 }
@@ -149,11 +172,11 @@ body {
 	filter: brightness(50%);
 }
 
-.poster__wrap__series:hover .poster__description_layer {
+.poster__wrap__tv:hover .poster__description_layer {
 	visibility: visible;
 }
 
-.poster__wrap__series:hover .series-poster_result {
+.poster__wrap__tv:hover .tv-poster_result {
 	filter: blur(2.5px);
 	border: thick solid var(--alabaster);
 	filter: brightness(50%);
