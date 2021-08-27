@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-    <link rel='icon' type='image/x-icon' href='/resources/favicon.ico'>
+    <link rel='icon' type='image/x-icon' href='../resources/favicon.ico'>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type ="module" src="../modules/index.js"></script>
+    <script src="../modules/index.js"></script>
 </head>
 <body>
     <section class='page'>
@@ -26,17 +26,17 @@
         </div>
     </section>
     <section>
-        <form action="results.html">
-            <input type="radio" id="movie" name="">
-            <label for="movie">Movie</label>
-            <input type="radio" id="series" name="">
-            <label for="series">Series</label><br>
-            <input type="text" name="" id="searchMovie" placeholder="Search Movie">
+        <form id='searchForm' action="results.html">
+            <select name="type" id="mediaType" >
+                <option value="movie">Movie</option>
+                <option value="tv">Series</option>
+            </select>
+            <input type="text" name="" id="searchMovie" placeholder="Search">
         </form>
     </section>
     <section id="page_popular_movies">
     </section>
-       <section id='page_popular_series'>
+       <section id='page_popular_tv'>
        </section>
     </section>
 </body>
