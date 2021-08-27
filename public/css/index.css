@@ -132,9 +132,9 @@ body {
 
 .poster__description {
     display: flex;
-	align-items: bottom;
 	justify-content: center;
     text-align: center;
+    overflow-wrap: break-word;
     color: var(--alabaster);
 }
 
