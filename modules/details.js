@@ -41,7 +41,7 @@ const fetchMedia = async (media_type, media_id, API_KEY) => {
         return;
     }
 
-    container.innerHTML = "<p>Getting information...</p>";
+    container.innerHTML = "<p>Getting information...<br>If this search takes too long, there's a chance we might not have your result...</p>";
 
     const MEDIA_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}?api_key=${API_KEY}&language=en-US&append_to_response=videos`);
 
