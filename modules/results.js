@@ -78,7 +78,7 @@ const displayResults = (results) => {
 			cell.setAttribute("onclick", "getDetails(this)");
 
 			cell.innerHTML = `
-						<img src="http://image.tmdb.org/t/p/original/${results[i].poster}" 
+						<img src="${getPoster(results[i].poster)}" 
 							alt="${results[i].title}" class="poster_result"
 							id="${results[i].media_type} ${
 				results[i].id
@@ -104,13 +104,21 @@ const displayResults = (results) => {
 				});
 			});
 		} else {
-			gridContainer.setAttribute('id', 'grid-container');
+			gridContainer.setAttribute("id", "grid-container");
 		}
 	} else {
 		const p = document.createElement("p");
 		p.innerHTML = "No results found";
 		gridContainer.appendChild(p);
 	}
+};
+
+const getPoster = (posterPath) => {
+	if (posterPath === null) {
+		return "../resources/unavailable_image.png";
+	}
+
+	return `http://image.tmdb.org/t/p/original/${posterPath}`;
 };
 
 const getYear = (resultDate) => {
