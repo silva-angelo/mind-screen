@@ -9,11 +9,27 @@
 }
 
 body {
-    background: #333533;
+   background: var(--jet);
+   /* animation: body 10000ms linear infinite alternate; */
+   /*radial-gradient(circle at center, var(--eerieBlack), var(--jet) 0%, var(--maizeCrayola) 200%);*/
+}
+
+/* @keyframes body {
+    from {background-color: var(--jet);}
+to {background-color: var(--alabaster);}
+} */
+
+h3 {
+    display: block;
+    padding: 2px;
+    margin-left: 0.3em;
+    color: var(--alabaster);
+    border-radius: 2em;
+    transition: 500ms;
 }
 
 .page {
-    animation: glow 10000ms linear infinite alternate;
+    animation: glow 6000ms linear infinite alternate;
 }
 
 @keyframes glow {
@@ -43,13 +59,14 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0%;
+    margin-top: 0;
     width: 40%;
 }
 
 #searchForm {
     display: flex;
     justify-content: center;
+    margin-bottom: 30%;
 }
 
 #searchMovie {
@@ -73,7 +90,7 @@ body {
     background-color: var(--eerieBlack);
     width: 6%;
     border: 3px solid var(--eerieBlack);
-    color: #ffffff54;
+    color: #fefffe5d;
     border-radius: 2em 0 0 2em;
     transition: 500ms;
 
@@ -151,6 +168,7 @@ body {
 	align-content: center;
 	justify-content: center;
 	visibility: hidden;
+    margin: 1em;
 }
 
 .poster__description {
