@@ -28,7 +28,20 @@ window.onload = () => {
 const fetchMedia = async (media_type, media_id, API_KEY) => {
 
     let container = document.getElementById('page__main-container');
-    container.innerHTML = "<p>Getting information...</p>";
+
+    // Media type validation
+    if (media_type != "movie" && media_type != "tv") {
+        container.innerHTML = "<p>Invalid search, try again with valid search parameters or contact the dev team.</p>";
+        return;
+    }
+
+    // Media id validation
+    if (isNaN(media_id)) {
+        container.innerHTML = "<p>Invalid ID, try again with a valid ID or contact the dev team.</p>";
+        return;
+    }
+
+    container.innerHTML = "<p>Getting information...<br>If this search takes too long, there's a chance we might not have your result...</p>";
 
     const MEDIA_DATA_ENDPOINT = fetch(`https://api.themoviedb.org/3/${media_type}/${media_id}?api_key=${API_KEY}&language=en-US&append_to_response=videos`);
 
