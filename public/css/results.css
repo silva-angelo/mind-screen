@@ -56,6 +56,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	color: var(--alabaster);
+	font-family: 'Roboto', sans-serif;
 }
 
 .poster__wrap:hover .poster__description_layer {
