@@ -52,6 +52,7 @@
 }
 
 .poster__wrap:hover .poster__description_layer {
+	cursor: pointer;
 	visibility: visible;
 }
 
