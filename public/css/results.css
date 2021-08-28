@@ -19,6 +19,13 @@
 	/* row-gap: 2%; */
 }
 
+.grid-container {
+	display: grid;
+	grid-template-columns: 18% 18% 18% 18% 18%;
+	column-gap: 2.5%;
+	row-gap: 2%;
+}
+
 .poster__wrap {
 	text-align: center;
 	position: relative;
@@ -62,8 +69,8 @@
 	filter: brightness(50%);
 }
 
-.slick-list {       
-    max-width: 100%;
+.slick-list {
+	max-width: 100%;
 }
 
 .slick-track {

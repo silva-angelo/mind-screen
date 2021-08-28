@@ -68,9 +68,9 @@ const getResults = (data, mediaType) => {
 };
 
 const displayResults = (results) => {
-	if (results.length > 0) {
-		const gridContainer = document.getElementById("grid-container");
+	const gridContainer = document.getElementById("grid-container");
 
+	if (results.length > 0) {
 		for (let i = 0; i < results.length; i++) {
 			const cell = document.createElement("div");
 
@@ -92,17 +92,20 @@ const displayResults = (results) => {
 			gridContainer.appendChild(cell);
 		}
 
-		$(document).ready(function () {
-			$(".grid-container").slick({
-				rows: 2,
-				infinite: false,
-				arrows: true,
-				draggable: false,
-				slidesToShow: 5,
-				slidesToScroll: 5,
+		if (results.length > 5) {
+			$(document).ready(function () {
+				$(".grid-container").slick({
+					rows: 2,
+					infinite: false,
+					arrows: true,
+					draggable: false,
+					slidesToShow: 5,
+					slidesToScroll: 5,
+				});
 			});
-		});
-
+		} else {
+			gridContainer.setAttribute('id', 'grid-container');
+		}
 	} else {
 		const p = document.createElement("p");
 		p.innerHTML = "No results found";
@@ -121,7 +124,7 @@ const getDetails = async (posterWrap) => {
 	const mediaType = idInfo[0];
 	const mediaId = idInfo[1];
 
-	window.location.assign(
-		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
-	);
+	// window.location.assign(
+	// 	`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
+	// );
 };
