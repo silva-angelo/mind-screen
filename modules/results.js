@@ -98,13 +98,24 @@ const displayResults = (results) => {
 					rows: 2,
 					infinite: false,
 					arrows: true,
+					dots: true,
 					draggable: false,
 					slidesToShow: 5,
 					slidesToScroll: 5,
 					prevArrow: `<div class='arrow-container'><div class='arrow' id='prev-arrow'></div></div>`,
-					nextArrow: `<div class='arrow-container'><div class='arrow' id='next-arrow'></div></div>`
+					nextArrow: `<div class='arrow-container'><div class='arrow' id='next-arrow'></div></div>`,
 				});
+
+				$(".slick-dots").wrap(
+					'<div id="dots-container" class="dots-container"></div>'
+				);
 			});
+
+			setTimeout(() => {
+				const dotsContainer = document.getElementById("dots-container");
+				const pageMainContainer = document.getElementById("page__main-container");
+				pageMainContainer.appendChild(dotsContainer);
+			}, 1);
 		} else {
 			gridContainer.setAttribute("id", "grid-container");
 		}
