@@ -78,15 +78,16 @@
     transition: 250ms;
     background-color: var(--jet);
     border: .1em solid var(--jet);
-    border-radius: 1em;
-    padding: .5em;
+    border-radius: .5em;
+    padding: .25em ;
     text-decoration: none;
 }
 
 #page__main-container__data__categories__trailer:hover {
-    color: var(--maizeCrayola);
+    color: var(--eerieBlack);
     border: .1em solid var(--maizeCrayola);
-    box-shadow: 0 0 .2em var(--maizeCrayola);
+    background-color: var(--maizeCrayola);
+    box-shadow: 0 0 .25em var(--maizeCrayola);   
 }
 
 #page__main-container__data__release-date {
@@ -154,4 +155,35 @@
 /* fixes carousel when items in container below minimum displayed items (5) */
 .slick-list {
     width: 100%;
+}
+
+/* MEDIA QUERIES */
+/* small screen */
+@media (max-width: 767px) and (orientation: portrait) {
+    #page__main-container {            
+        text-align: center;    
+        font-size: .75em;
+    }
+
+    #page__main-container__poster {
+        display: none;
+    }
+}
+
+@media (max-width: 764px) and (orientation: landscape) {
+    #page__main-container {            
+        text-align: center;    
+        font-size: .75em;
+    }
+
+    #page__main-container__poster {
+        display: none;
+    }       
+}
+
+/* medium screen */
+@media (max-width: 1279px) and (min-width: 768px) and (orientation: landscape) {
+    #page__main-container {
+        font-size: .75em;
+    }
 }

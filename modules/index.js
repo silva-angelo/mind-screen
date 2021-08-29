@@ -6,11 +6,13 @@ $(document).ready(function () {
     
     $('#searchMovie').keypress(function (e) {
         if (e.which == 13) {
-            let search = document.getElementById('searchMovie').value; //e.target.value;
+            let search = document.getElementById('searchMovie').value;
             let type = document.getElementById('mediaType').value;
+            console.log(search);
             if (!search) {
                 return;
             }
+
             window.location.assign('../views/results.html?media_type=' + type + '&search=' + search);
         return false;
         }
