@@ -4,19 +4,23 @@ $(document).ready(function () {
     const popular_Movie_ENDPOINT=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     const popular_Series_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
     
-    $('#searchMovie').keypress(function (e) {
+    $('#searchMedia').keypress(function (e) {
         if (e.which == 13) {
-            let search = document.getElementById('searchMovie').value;
-            let type = document.getElementById('mediaType').value;
-            console.log(search);
+            let search = document.getElementById('searchMedia').value.trim();
+
+            console.log(search)
+
             if (!search) {
-                return;
+                return false;
             }
 
+            let type = document.getElementById('mediaType').value;
+
             window.location.assign('../views/results.html?media_type=' + type + '&search=' + search);
-        return false;
+
+            return false;
         }
-    })
+    });
 
     fetch(popular_Movie_ENDPOINT)
         .then(parsedResponse)
@@ -29,6 +33,7 @@ $(document).ready(function () {
         .then(getPopularSeries)
         .then(renderResultsSeries)
         .catch((err) => console.error(err));
+
 });
 
 function parsedResponse(response) {

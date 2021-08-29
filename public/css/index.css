@@ -69,7 +69,7 @@ h3 {
     margin-bottom: 30%;
 }
 
-#searchMovie {
+#searchMedia {
     display: block;
     padding: 2px;
     margin-top: 10%;
@@ -96,7 +96,7 @@ h3 {
 
 }
 
-#searchMovie:focus {
+#searchMedia:focus {
     border: 3px solid var(--maizeCrayola);
     outline: none;
 }
