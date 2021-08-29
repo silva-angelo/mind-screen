@@ -101,6 +101,8 @@ const displayResults = (results) => {
 					draggable: false,
 					slidesToShow: 5,
 					slidesToScroll: 5,
+					prevArrow: `<div class='arrow-container'><div class='arrow' id='prev-arrow'></div></div>`,
+					nextArrow: `<div class='arrow-container'><div class='arrow' id='next-arrow'></div></div>`
 				});
 			});
 		} else {
@@ -132,7 +134,7 @@ const getDetails = async (posterWrap) => {
 	const mediaType = idInfo[0];
 	const mediaId = idInfo[1];
 
-	// window.location.assign(
-	// 	`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
-	// );
+	window.location.assign(
+		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
+	);
 };
