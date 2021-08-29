@@ -12,11 +12,19 @@
 }
 
 #grid-container {
+	margin-top: 2.5%;
+	margin-bottom: 1%;
+	display: grid;
+	grid-template-columns: 7.5% 85% 7.5%;
+	grid-row-end: 1;
+}
+
+#grid-container__few-results {
 	margin: 5%;
-	/* display: grid; */
-	/* grid-template-columns: 18% 18% 18% 18% 18%; */
-	/* column-gap: 2.5%; */
-	/* row-gap: 2%; */
+	display: grid;
+	grid-template-columns: 18% 18% 18% 18% 18%;
+	column-gap: 2.5%;
+	row-gap: 2%;
 }
 
 .poster__wrap {
@@ -49,9 +57,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	color: var(--alabaster);
+	font-family: "Roboto", sans-serif;
 }
 
 .poster__wrap:hover .poster__description_layer {
+	cursor: pointer;
 	visibility: visible;
 }
 
@@ -61,6 +72,80 @@
 	filter: brightness(50%);
 }
 
-.slick-list {       
-    max-width: 100%;
+.slick-track {
+	margin-left: 0 !important;
+}
+
+.arrow-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.arrow {
+	width: 3vmin;
+	height: 3vmin;
+	box-sizing: border-box;
+	position: relative;
+}
+
+#prev-arrow {
+	margin-left: 25%;
+	transform: rotate(-135deg);
+}
+
+#next-arrow {
+	margin-right: 25%;
+	transform: rotate(45deg);
+}
+
+.arrow::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	border-width: 0.8vmin 0.8vmin 0 0;
+	border-style: solid;
+	border-color: var(--alabaster);
+	transition: 0.2s ease;
+	display: block;
+	transform-origin: 100% 0;
+}
+
+.arrow:hover::before {
+	cursor: pointer;
+	border-color: var(--maizeCrayola);
+	transform: scale(0.8);
+}
+
+.dots-container {
+	margin-bottom: 1%;
+	max-width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.slick-dots {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+}
+
+.slick-dots li {
+	margin: 10%;
+	list-style-type: none;
+}
+
+.slick-dots li button {
+	color: transparent;
+	background-color: transparent;
+	border-radius: 100%;
+	border-style: solid;
+	border-color: var(--alabaster);
+	height: 20px;
+	width: 20px;
+}
+
+.slick-dots li.slick-active button {
+	background-color: var(--alabaster);
 }

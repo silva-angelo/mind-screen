@@ -68,9 +68,9 @@ const getResults = (data, mediaType) => {
 };
 
 const displayResults = (results) => {
-	if (results.length > 0) {
-		const gridContainer = document.getElementById("grid-container");
+	const gridContainer = document.getElementById("grid-container");
 
+	if (results.length > 0) {
 		for (let i = 0; i < results.length; i++) {
 			const cell = document.createElement("div");
 
@@ -78,7 +78,7 @@ const displayResults = (results) => {
 			cell.setAttribute("onclick", "getDetails(this)");
 
 			cell.innerHTML = `
-						<img src="http://image.tmdb.org/t/p/original/${results[i].poster}" 
+						<img src="${getPoster(results[i].poster)}" 
 							alt="${results[i].title}" class="poster_result"
 							id="${results[i].media_type} ${
 				results[i].id
@@ -92,22 +92,46 @@ const displayResults = (results) => {
 			gridContainer.appendChild(cell);
 		}
 
-		$(document).ready(function () {
-			$(".grid-container").slick({
-				rows: 2,
-				infinite: false,
-				arrows: true,
-				draggable: false,
-				slidesToShow: 5,
-				slidesToScroll: 5,
-			});
-		});
+		if (results.length > 10) {
+			$(document).ready(function () {
+				$(".grid-container").slick({
+					rows: 2,
+					infinite: false,
+					arrows: true,
+					dots: true,
+					draggable: false,
+					slidesToShow: 5,
+					slidesToScroll: 5,
+					prevArrow: `<div class='arrow-container'><div class='arrow' id='prev-arrow'></div></div>`,
+					nextArrow: `<div class='arrow-container'><div class='arrow' id='next-arrow'></div></div>`,
+				});
 
+				$(".slick-dots").wrap(
+					'<div id="dots-container" class="dots-container"></div>'
+				);
+			});
+
+			setTimeout(() => {
+				const dotsContainer = document.getElementById("dots-container");
+				const pageMainContainer = document.getElementById("page__main-container");
+				pageMainContainer.appendChild(dotsContainer);
+			}, 1);
+		} else {
+			gridContainer.id = 'grid-container__few-results';
+		}
 	} else {
 		const p = document.createElement("p");
 		p.innerHTML = "No results found";
 		gridContainer.appendChild(p);
 	}
+};
+
+const getPoster = (posterPath) => {
+	if (posterPath === null) {
+		return "../resources/unavailable_image.png";
+	}
+
+	return `http://image.tmdb.org/t/p/original/${posterPath}`;
 };
 
 const getYear = (resultDate) => {
@@ -121,7 +145,7 @@ const getDetails = async (posterWrap) => {
 	const mediaType = idInfo[0];
 	const mediaId = idInfo[1];
 
-	window.location.replace(
+	window.location.assign(
 		`../views/details.html?media_type=${mediaType}&media_id=${mediaId}`
 	);
 };
