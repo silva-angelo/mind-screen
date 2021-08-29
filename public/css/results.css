@@ -17,12 +17,11 @@
 	display: grid;
 	grid-template-columns: 7.5% 85% 7.5%;
 	grid-row-end: 1;
-	/* row-gap: 2%; */
 }
 
 #grid-container__few-results {
-	display: grid;
 	margin: 5%;
+	display: grid;
 	grid-template-columns: 18% 18% 18% 18% 18%;
 	column-gap: 2.5%;
 	row-gap: 2%;

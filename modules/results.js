@@ -92,7 +92,7 @@ const displayResults = (results) => {
 			gridContainer.appendChild(cell);
 		}
 
-		if (results.length > 5) {
+		if (results.length > 10) {
 			$(document).ready(function () {
 				$(".grid-container").slick({
 					rows: 2,
@@ -117,7 +117,7 @@ const displayResults = (results) => {
 				pageMainContainer.appendChild(dotsContainer);
 			}, 1);
 		} else {
-			gridContainer.setAttribute("id", "grid-container");
+			gridContainer.id = 'grid-container__few-results';
 		}
 	} else {
 		const p = document.createElement("p");
