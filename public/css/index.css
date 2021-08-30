@@ -21,6 +21,7 @@ to {background-color: var(--alabaster);}
 
 h3 {
     display: block;
+    text-align: center;
     padding: 2px;
     margin-left: 0.3em;
     color: var(--alabaster);
@@ -40,39 +41,26 @@ h3 {
     100% {filter: brightness(200%);}
 }
 
-/* .page {
-    background-image: url(../../resources/blurry-logo.svg);
-    animation: glow 5000ms linear infinite alternate;
-}
-
-@keyframes glow {
-    0% {filter: brightness(100%) blur(5);}
-    25% {filter: brightness(110%) blur(0);}
-    50% {filter: brightness(105%) blur(.1em);}
-    75% {filter: brightness(100%) blur(0);}
-    100% {filter: brightness(200%) blur(0);}
-} */
-
 #page__logo-container__logo {
     position: sticky;
     top: 0;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0;
+    margin-top: 10em;
     width: 40%;
 }
 
 #searchForm {
     display: flex;
     justify-content: center;
-    margin-bottom: 30%;
+    margin-bottom: 10%;
 }
 
 #searchMedia {
     display: block;
     padding: 2px;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: 0.3em;
     background-color: var(--eerieBlack);
     width: 40%;
@@ -86,7 +74,7 @@ h3 {
 #mediaType {
     display: block;
     padding: 2px;
-    margin-top: 10%;
+    margin-top: 5%;
     background-color: var(--eerieBlack);
     width: 6%;
     border: 3px solid var(--eerieBlack);
@@ -198,5 +186,73 @@ h3 {
 	filter: blur(2.5px);
 	border: thick solid var(--alabaster);
 	filter: brightness(50%);
+}
+
+footer {
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#TMDB_logo {
+    width: 14em;
+    
+
+}
+
+#TMDB_credits {
+    color: var(--alabaster);
+}
+
+.arrow-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    margin-bottom: 20%;
+}
+
+.arrow {
+	width: 3vmin;
+	height: 3vmin;
+	box-sizing: border-box;
+	position: relative;
+    transform: rotate(135deg);
+}
+
+.arrow::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	border-width: 0.8vmin 0.8vmin 0 0;
+	border-style: solid;
+	border-color: var(--alabaster);
+	transition: 0.2s ease;
+	display: block;
+	transform-origin: 100% 0;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(245, 203, 92, .5);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(245, 203, 92, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(rgba(245, 203, 92, 0));
+	}
+}
+
+.arrow:hover::before {
+	cursor: pointer;
+	border-color: var(--maizeCrayola);
+	transform: scale(0.8);
 }
 

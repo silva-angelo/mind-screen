@@ -7,17 +7,11 @@ $(document).ready(function () {
     $('#searchMedia').keypress(function (e) {
         if (e.which == 13) {
             let search = document.getElementById('searchMedia').value.trim();
-
-            console.log(search)
-
             if (!search) {
                 return false;
             }
-
             let type = document.getElementById('mediaType').value;
-
             window.location.assign('../views/results.html?media_type=' + type + '&search=' + search);
-
             return false;
         }
     });
