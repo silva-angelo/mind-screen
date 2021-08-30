@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,37 +17,39 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../modules/index.js"></script>
 </head>
+
 <body>
     <section class='page'>
         <div id='page__logo-container'>
             <a href='index.html' draggable='false'>
                 <img id='page__logo-container__logo' src='../resources/ms_logo_1.png' draggable='false'
-                alt='MindScreen logo'>
+                    alt='MindScreen logo'>
             </a>
         </div>
     </section>
     <section>
         <form id='searchForm' action="results.html">
-            <select name="type" id="mediaType" >
+            <select name="type" id="mediaType">
                 <option value="movie">Movie</option>
                 <option value="tv">Series</option>
             </select>
             <input type="text" x-WebKit speech name="" id="searchMedia" placeholder="Search">
         </form>
-    <div class='arrow-container'>
-        <a href="#anchor__point" class='arrow'></a>
-    </div>
-    <!-- <button id='generate__random__movie'>RandoMovie</button> -->
-    <h3 id='anchor_point'>Popular Movies</h3>
-    <section id="page_popular_movies">
-    </section>
-    <h3>Popular Series</h3>
-    <section id='page_popular_tv'>
-    </section>
-    <footer>
-        <img id='TMDB_logo' src="../resources/logo_TMDB.svg" alt="Logo API">
-        <p id='TMDB_credits'>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
-    </footer>
+        <div class='arrow-container'>
+            <a href="#anchor_point" class='arrow'></a>
+        </div>
+        <!-- <button id='generate__random__movie'>RandoMovie</button> -->
+        <h3 id='anchor_point'>Popular Movies</h3>
+        <section id="page_popular_movies">
+        </section>
+        <h3>Popular Series</h3>
+        <section id='page_popular_tv'>
+        </section>
+        <footer>
+            <img id='TMDB_logo' src="../resources/logo_TMDB.svg" alt="Logo API">
+            <p id='TMDB_credits'>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+        </footer>
     </section>
 </body>
+
 </html>
