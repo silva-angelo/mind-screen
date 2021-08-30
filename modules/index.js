@@ -1,9 +1,10 @@
 $(document).ready(function () {
-
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
-    const popular_Movie_ENDPOINT=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    const popular_Series_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    
+    const popular_movie_endpoint=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    const popular_series_endpoint = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
+
+    //$('#generate__random__movie').click(getRandomMovieClick());
+
     $('#searchMedia').keypress(function (e) {
         if (e.which == 13) {
             let search = document.getElementById('searchMedia').value.trim();
@@ -16,19 +17,30 @@ $(document).ready(function () {
         }
     });
 
-    fetch(popular_Movie_ENDPOINT)
+    fetch(popular_movie_endpoint)
         .then(parsedResponse)
         .then(getPopularMovies)
         .then(renderResultsMovies)
         .catch((err) => console.error(err));
 
-    fetch(popular_Series_ENDPOINT)
+    fetch(popular_series_endpoint)
         .then(parsedResponse)
         .then(getPopularSeries)
         .then(renderResultsSeries)
         .catch((err) => console.error(err));
 
 });
+
+/*function getRandomMovieClick() {
+
+    const API_KEY = '699c5ef1665132d7f67266a73389f90a';
+    const latest_movie_endpoint = `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US`;
+    
+    fetch(latest_movie_endpoint)
+        .then(parsedResponse)
+        //.then(getRandomMovie)
+        .catch((err) => console.log(err));
+}*/
 
 function parsedResponse(response) {
     
@@ -55,7 +67,7 @@ function getPopularMovies(data){
 }
 
 function getPopularSeries(data){
-    console.log(data);
+    //console.log(data);
    let result = data.results.map((tv) => {
         return {
             id: tv.id,
@@ -129,3 +141,32 @@ const getDetails = (getMedia) => {
     const mediaType = idInfo[0]
     window.location.assign('../views/details.html?media_type='+mediaType+'&media_id='+id);
 }
+
+/*const  getRandomMovie = (data) => {
+
+    const lastIdMovie = data.id;
+
+    let isValid = false;
+
+    let idRandom = '';
+
+    while (!isValid) {
+        idRandom = getRandomId(lastIdMovie);
+        let url = `https://api.themoviedb.org/3/movie/${idRandom}?api_key=699c5ef1665132d7f67266a73389f90a&language=en-US&append_to_response=videos`
+
+        fetch(url)
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error ('Error: ' + endpointsResponse.status);
+                }
+                isValid = true;
+            })
+    }
+    window.location.assign(`../views/details.html?media_type=movie&media_id=${idRandom}`)
+
+}
+
+const getRandomId = (id) => {
+return Math.floor(Math.random() * (id - 0 + 1) );
+}*/
+
