@@ -1,10 +1,19 @@
+/**
+ * On document ready gets endpoints from API in order to use them in subsequent functions
+ * @param {*} API_KEY API Key used to fetch data from TMDB
+ */
 $(document).ready(function () {
     const API_KEY = '699c5ef1665132d7f67266a73389f90a';
     const popular_movie_endpoint=`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     const popular_series_endpoint = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
 
     //$('#generate__random__movie').click(getRandomMovieClick());
-
+    /**
+     * Waiting the key press to read the input in the box
+     * Read the input on the text box search refer to the name of the movie or the series
+     * Get the value on the select form can be movie or series
+     * take the two input and passed them in url to the next page html with location.assign
+     */
     $('#searchMedia').keypress(function (e) {
         if (e.which == 13) {
             let search = document.getElementById('searchMedia').value.trim();
@@ -16,13 +25,19 @@ $(document).ready(function () {
             return false;
         }
     });
-
+   /**
+    * Fetches TMDB endpoint, fulfilling one promises get the popular movies from the day
+    *@param {*} popular_movie_endpoint refers to the end point from TMDB
+    */
     fetch(popular_movie_endpoint)
         .then(parsedResponse)
         .then(getPopularMovies)
         .then(renderResultsMovies)
         .catch((err) => console.error(err));
-
+    /**
+    * Fetches TMDB endpoint, fulfilling one promises get the popular series from the day
+    *@param {*} popular_series_endpoint refers to the end point from TMDB
+    */
     fetch(popular_series_endpoint)
         .then(parsedResponse)
         .then(getPopularSeries)
@@ -42,6 +57,11 @@ $(document).ready(function () {
         .catch((err) => console.log(err));
 }*/
 
+/**
+ * Parses given promises to return an accessible and displayable array of .json objects
+ * @param {*} response Response which results from the fulfilled endpoint promises
+ * @returns Array of responses in the .json format, with two called endpoint (popular_movie_endpoint and popular_series_endpoint)
+ */
 function parsedResponse(response) {
     
     if(!response.ok) {
@@ -50,6 +70,11 @@ function parsedResponse(response) {
     return response.json();
 }
 
+/**
+ * Getter for the specific object related with movie/series textual data (from the 1st element in the responses array)
+ * @param {*} data Array of responses in the .json format, with all one called endpoints (popular_movie_endpoint)
+ * @returns Object containing all movie textual data according to the requested
+ */
 function getPopularMovies(data){
     console.log(data);
    let result = data.results.map((movies) => {
@@ -66,6 +91,11 @@ function getPopularMovies(data){
     return result;
 }
 
+/**
+ * Getter for the specific object related with movie/series textual data (from the 1st element in the responses array)
+ * @param {*} data Array of responses in the .json format, with all one called endpoints (popular_series_endpoint)
+ * @returns Object containing all series textual data according to the requested
+ */
 function getPopularSeries(data){
     //console.log(data);
    let result = data.results.map((tv) => {
@@ -82,9 +112,15 @@ function getPopularSeries(data){
     return result;
 }
 
+/**
+ * Render de result of movies to present in html the top 5 of popular movies
+ * @param {*} movies list with data about all popular movies
+ * Just the first 5 popular movies on the list are presented
+ * The attribute on click are set to a new element because when click on it the details page html is open
+ * For each movie the element creat to insert on html it's necessary the image, movie id, the release date and the rating average
+ * This information is to append to the element created in html.
+ */
 function renderResultsMovies(movies) {
-    //page_list_popular
-
     const result = document.getElementById('page_popular_movies');
 
     for(let i=0; i<5; i++) {
@@ -105,7 +141,14 @@ function renderResultsMovies(movies) {
     }
 
 }
-
+/**
+ * Render de result of series to present in html the top 5 of popular series
+ * @param {*} series list with data about all popular series
+ * Just the first 5 popular series on the list are presented
+ * The attribute on click are set to a new element because when click on it the details page html is open
+ * For each serie the element creat to insert on html it's necessary the image, serie id, the release date and the rating average
+ * This information is to append to the element created in html.
+ */
 function renderResultsSeries(tv) {
     //page_list_popular
 
@@ -129,13 +172,24 @@ function renderResultsSeries(tv) {
 
 }
 
+/**
+ * Take the complete date of release movie or serie
+ * @param {*} resultDate is the date of relase movie or series
+ * @returns the year of release the movie or series
+ */
 const getYear = (resultDate) => {
 	let date = new Date(resultDate);
 	return date.getFullYear();
 }
 
+/**
+ * This function get the information about the popular media select and send to the next html(details page)
+ * @param {*} getMedia data about the select popular media
+ */
 const getDetails = (getMedia) => {
+    console.log(getMedia);
     let poster = getMedia.children[0];
+    console.log(poster);
     const idInfo = poster.id.split(' ');
     const id = idInfo[1];
     const mediaType = idInfo[0]
