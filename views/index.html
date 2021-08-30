@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MindScreen</title>
     <link rel="stylesheet" href="../public/css/index.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,13 +33,19 @@
             </select>
             <input type="text" x-WebKit speech name="" id="searchMedia" placeholder="Search">
         </form>
-    </section>
-    <h3>Popular Movies</h3>
+    <div class='arrow-container'>
+        <a href="#anchor_point" class='arrow'></a>
+    </div>
+    <h3 id='anchor_point'>Popular Movies</h3>
     <section id="page_popular_movies">
     </section>
     <h3>Popular Series</h3>
     <section id='page_popular_tv'>
     </section>
+    <footer>
+        <img id='TMDB_logo' src="../resources/logo_TMDB.svg" alt="Logo API">
+        <p id='TMDB_credits'>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+    </footer>
     </section>
 </body>
 </html>
