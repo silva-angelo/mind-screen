@@ -8,6 +8,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
    background: var(--jet);
    /* animation: body 10000ms linear infinite alternate; */
@@ -197,8 +201,6 @@ footer {
 
 #TMDB_logo {
     width: 14em;
-    
-
 }
 
 #TMDB_credits {
@@ -218,6 +220,7 @@ footer {
 	box-sizing: border-box;
 	position: relative;
     transform: rotate(135deg);
+
 }
 
 .arrow::before {
@@ -254,5 +257,9 @@ footer {
 	cursor: pointer;
 	border-color: var(--maizeCrayola);
 	transform: scale(0.8);
+}
+
+.generate__random__movie {
+    background-color: red;
 }
 
